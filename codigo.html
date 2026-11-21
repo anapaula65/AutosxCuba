@@ -1,0 +1,1632 @@
+
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Código Fuente - AutosxCuba 🇨🇺</title>
+        <style>
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f4f7f6; color: #333; }
+            header { background-color: #1a252f; color: white; padding: 20px; text-align: center; }
+            nav { background-color: #2c3e50; display: flex; justify-content: center; flex-wrap: wrap; }
+            nav a { color: white; padding: 15px 20px; text-decoration: none; font-weight: bold; }
+            nav a:hover { background-color: #1abc9c; }
+            .container { max-width: 1100px; margin: 30px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+            h2 { color: #2980b9; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px; }
+            .grafico { text-align: center; margin: 40px 0; padding: 20px; background: #f9f9f9; border-radius: 8px; border-left: 5px solid #3498db; }
+            .grafico img { max-width: 100%; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin-bottom: 15px; }
+            .explicacion { text-align: left; font-size: 1rem; color: #444; line-height: 1.6; }
+            .foto-galeria { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 20px; }
+            .foto-galeria img { width: 300px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+            audio { width: 100%; margin-top: 10px; margin-bottom: 20px; }
+            pre { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 14px; line-height: 1.4; }
+            .conclusion-box { background: #e8f8f5; padding: 20px; border-radius: 8px; border-left: 5px solid #1abc9c; margin-top: 30px; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>🚗 AutosxCuba 🇨🇺</h1>
+            <p>Análisis del Mercado Automotriz - Ana Paula González Gómez</p>
+        </header>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="graficos.html">Análisis Visual</a>
+            <a href="entrevistas.html">Evidencias y Resultados</a>
+            <a href="historia.html">Metodología y Conclusiones</a>
+            <a href="codigo.html">Código Fuente</a>
+        </nav>
+        <div class="container">
+            <h2>Código Fuente</h2>
+            <p>Aquí se presentan todos los scripts de Python desarrollados para el proyecto.</p><h3>📄 crear_sitio_web.py</h3><pre><code>import os
+import shutil
+import glob
+import html
+
+carpeta_web = &#x27;Sitio_Web_Proyecto&#x27;
+os.makedirs(carpeta_web, exist_ok=True)
+os.makedirs(f&#x27;{carpeta_web}/img/graficos&#x27;, exist_ok=True)
+os.makedirs(f&#x27;{carpeta_web}/img/fotos&#x27;, exist_ok=True)
+os.makedirs(f&#x27;{carpeta_web}/audio&#x27;, exist_ok=True)
+
+print(&quot;Copiando archivos multimedia...&quot;)
+if os.path.exists(&#x27;data/graficos&#x27;):
+    for f in glob.glob(&#x27;data/graficos/*.png&#x27;):
+        shutil.copy(f, f&#x27;{carpeta_web}/img/graficos/&#x27;)
+
+if os.path.exists(&#x27;data/evidencias/fotos&#x27;):
+    for f in glob.glob(&#x27;data/evidencias/fotos/*.*&#x27;):
+        if f.lower().endswith((&#x27;.png&#x27;, &#x27;.jpg&#x27;, &#x27;.jpeg&#x27;)):
+            shutil.copy(f, f&#x27;{carpeta_web}/img/fotos/&#x27;)
+
+if os.path.exists(&#x27;data/evidencias/audios&#x27;):
+    for f in glob.glob(&#x27;data/evidencias/audios/*.*&#x27;):
+        if f.lower().endswith((&#x27;.mp3&#x27;, &#x27;.m4a&#x27;, &#x27;.wav&#x27;, &#x27;.ogg&#x27;)):
+            shutil.copy(f, f&#x27;{carpeta_web}/audio/&#x27;)
+
+def plantilla_html(titulo, contenido):
+    return f&quot;&quot;&quot;
+    &lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;es&quot;&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;title&gt;{titulo} - AutosxCuba 🇨🇺&lt;/title&gt;
+        &lt;style&gt;
+            body {{ font-family: &#x27;Segoe UI&#x27;, Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f4f7f6; color: #333; }}
+            header {{ background-color: #1a252f; color: white; padding: 20px; text-align: center; }}
+            nav {{ background-color: #2c3e50; display: flex; justify-content: center; flex-wrap: wrap; }}
+            nav a {{ color: white; padding: 15px 20px; text-decoration: none; font-weight: bold; }}
+            nav a:hover {{ background-color: #1abc9c; }}
+            .container {{ max-width: 1100px; margin: 30px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }}
+            h2 {{ color: #2980b9; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px; }}
+            .grafico {{ text-align: center; margin: 40px 0; padding: 20px; background: #f9f9f9; border-radius: 8px; border-left: 5px solid #3498db; }}
+            .grafico img {{ max-width: 100%; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin-bottom: 15px; }}
+            .explicacion {{ text-align: left; font-size: 1rem; color: #444; line-height: 1.6; }}
+            .foto-galeria {{ display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 20px; }}
+            .foto-galeria img {{ width: 300px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }}
+            audio {{ width: 100%; margin-top: 10px; margin-bottom: 20px; }}
+            pre {{ background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 14px; line-height: 1.4; }}
+            .conclusion-box {{ background: #e8f8f5; padding: 20px; border-radius: 8px; border-left: 5px solid #1abc9c; margin-top: 30px; }}
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;header&gt;
+            &lt;h1&gt;🚗 AutosxCuba 🇨🇺&lt;/h1&gt;
+            &lt;p&gt;Análisis del Mercado Automotriz - Ana Paula González Gómez&lt;/p&gt;
+        &lt;/header&gt;
+        &lt;nav&gt;
+            &lt;a href=&quot;index.html&quot;&gt;Inicio&lt;/a&gt;
+            &lt;a href=&quot;graficos.html&quot;&gt;Análisis Visual&lt;/a&gt;
+            &lt;a href=&quot;entrevistas.html&quot;&gt;Evidencias y Resultados&lt;/a&gt;
+            &lt;a href=&quot;historia.html&quot;&gt;Metodología y Conclusiones&lt;/a&gt;
+            &lt;a href=&quot;codigo.html&quot;&gt;Código Fuente&lt;/a&gt;
+        &lt;/nav&gt;
+        &lt;div class=&quot;container&quot;&gt;
+            &lt;h2&gt;{titulo}&lt;/h2&gt;
+            {contenido}
+        &lt;/div&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+    &quot;&quot;&quot;
+
+# --- PÁGINA DE INICIO ---
+inicio = &quot;&quot;&quot;
+&lt;p&gt;Bienvenido al reporte interactivo del proyecto &lt;strong&gt;AutosxCuba&lt;/strong&gt;. Usa el menú superior para navegar.&lt;/p&gt;
+
+&lt;div class=&quot;conclusion-box&quot; style=&quot;border-left-color: #e74c3c; background-color: #fdedec;&quot;&gt;
+    &lt;h3&gt;💡 Hallazgo Principal del Proyecto&lt;/h3&gt;
+    &lt;p&gt;&lt;em&gt;&quot;El análisis reveló una discrepancia entre la oferta y la demanda. Los gráficos de scraping muestran que el 54% de los autos a la venta son eléctricos (una oferta inflada por las importaciones). Sin embargo, el análisis cualitativo de las entrevistas demuestra que la demanda real prefiere la gasolina por los problemas de electricidad. Esta desconexión indica que el mercado de eléctricos en Cuba está sobreofertado o que los dueños los están revendiendo por falta de infraestructura para cargarlos.&quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Resumen de Fuentes:&lt;/h3&gt;
+&lt;table style=&quot;width:100%; border-collapse: collapse; text-align:left;&quot;&gt;
+    &lt;tr style=&quot;background:#ecf0f1;&quot;&gt;&lt;th style=&quot;padding:10px;&quot;&gt;Fuente&lt;/th&gt;&lt;th&gt;Estado&lt;/th&gt;&lt;th&gt;Cantidad&lt;/th&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td style=&quot;padding:10px;&quot;&gt;Revolico&lt;/td&gt;&lt;td&gt;✅ Completado&lt;/td&gt;&lt;td&gt;80 anuncios&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td style=&quot;padding:10px;&quot;&gt;Dongfeng&lt;/td&gt;&lt;td&gt;✅ Completado&lt;/td&gt;&lt;td&gt;~40 modelos&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td style=&quot;padding:10px;&quot;&gt;AutoCubana&lt;/td&gt;&lt;td&gt;✅ Completado&lt;/td&gt;&lt;td&gt;24 anuncios&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td style=&quot;padding:10px;&quot;&gt;Telegram&lt;/td&gt;&lt;td&gt;✅ Completado&lt;/td&gt;&lt;td&gt;19 mensajes&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td style=&quot;padding:10px;&quot;&gt;Entrevistas&lt;/td&gt;&lt;td&gt;✅ Completado&lt;/td&gt;&lt;td&gt;15 entrevistas&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&quot;&quot;&quot;
+
+# --- PÁGINA DE GRÁFICOS ---
+explicaciones = {
+    &#x27;01_histograma_precios.png&#x27;: &#x27;El mercado está fuertemente sesgado. La mayoría de los autos se concentran en rangos económicos (menos de $15,000 USD), pero la presencia de autos de lujo infla el promedio. &lt;strong&gt;Conclusión:&lt;/strong&gt; La mediana es una medida más representativa del valor real de los vehículos en Cuba que el promedio.&#x27;,
+    &#x27;02_top_marcas.png&#x27;: &#x27;Hyundai, Kia y Toyota dominan abrumadoramente la oferta del mercado. &lt;strong&gt;Conclusión:&lt;/strong&gt; Existe una clara preferencia del consumidor por marcas con alta disponibilidad de repuestos, lo que genera una mayor rotación y oferta de estas marcas en el mercado informal.&#x27;,
+    &#x27;03_anio_vs_precio.png&#x27;: &#x27;Se observa una clara correlación positiva: a mayor año, mayor precio. Sin embargo, se identifican &quot;outliers&quot; (valores atípicos) de autos muy nuevos con precios desproporcionados que rompen la tendencia lineal. &lt;strong&gt;Conclusión:&lt;/strong&gt; El año de fabricación explica más del 50% del valor del auto.&#x27;,
+    &#x27;04_provincias.png&#x27;: &#x27;Existe una alta concentración de datos en &quot;Desconocida&quot; porque muchas plataformas no solicitan la provincia. Entre las registradas, La Habana domina la oferta, seguida de Holguín y Matanzas. &lt;strong&gt;Conclusión:&lt;/strong&gt; El mercado está centralizado en la capital, aunque hay falta de datos geográficos formales.&#x27;,
+    &#x27;05_tipos_combustible.png&#x27;: &#x27;Aproximadamente el 54% de la oferta son vehículos eléctricos. &lt;strong&gt;Conclusión Crítica:&lt;/strong&gt; Existe una gran paradoja entre la oferta y la demanda. Aunque los datos muestran una alta oferta de eléctricos, las entrevistas revelan que la demanda real sigue prefiriendo la combustión por la crisis energética. Esto sugiere que el mercado de eléctricos está sobreofertado o que los dueños los revenden por falta de infraestructura para cargarlos.&#x27;
+}
+
+graficos_html = &quot;&quot;
+for img, texto in explicaciones.items():
+    ruta_img = f&#x27;img/graficos/{img}&#x27;
+    if os.path.exists(f&#x27;{carpeta_web}/{ruta_img}&#x27;):
+        graficos_html += f&quot;&quot;&quot;
+        &lt;div class=&quot;grafico&quot;&gt;
+            &lt;img src=&quot;{ruta_img}&quot; alt=&quot;{img}&quot;&gt;
+            &lt;div class=&quot;explicacion&quot;&gt;&lt;strong&gt;Análisis:&lt;/strong&gt; {texto}&lt;/div&gt;
+        &lt;/div&gt;
+        &quot;&quot;&quot;
+
+graficos_html += &quot;&quot;&quot;
+&lt;div class=&quot;conclusion-box&quot;&gt;
+    &lt;h3&gt;Conclusiones Generales del Análisis Visual&lt;/h3&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;strong&gt;Relación Año-Precio:&lt;/strong&gt; Existe una correlación positiva clara, aunque distorsionada por autos de lujo (outliers).&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Sesgo de las fuentes:&lt;/strong&gt; La oferta estatal (Dongfeng) empuja la balanza hacia los eléctricos, mientras que el mercado informal (Revolico/Telegram) se inclina más por la combustión.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Factores cualitativos:&lt;/strong&gt; El precio en Cuba no depende solo del año y la marca, sino de los &quot;papeles&quot;, el estado de la dirección (por los baches) y la disponibilidad de repuestos.&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+&quot;&quot;&quot;
+
+# --- PÁGINA DE EVIDENCIAS Y RESULTADOS ---
+evidencias_html = &quot;&lt;p&gt;Evidencias recolectadas que garantizan la veracidad de los datos.&lt;/p&gt;&quot;
+
+fotos = glob.glob(f&#x27;{carpeta_web}/img/fotos/*.*&#x27;)
+if fotos:
+    evidencias_html += &quot;&lt;h3&gt;📸 Fotos y Capturas de los Anuncios:&lt;/h3&gt;&lt;div class=&#x27;foto-galeria&#x27;&gt;&quot;
+    for foto in fotos:
+        nombre = os.path.basename(foto)
+        evidencias_html += f&quot;&lt;img src=&#x27;img/fotos/{nombre}&#x27; alt=&#x27;{nombre}&#x27;&gt;&quot;
+    evidencias_html += &quot;&lt;/div&gt;&quot;
+else:
+    evidencias_html += &quot;&lt;p&gt;&lt;em&gt;(No se encontraron fotos en la carpeta).&lt;/em&gt;&lt;/p&gt;&quot;
+
+audios = glob.glob(f&#x27;{carpeta_web}/audio/*.*&#x27;)
+evidencias_html += &quot;&lt;h3&gt;🎙️ Audios de Entrevistas:&lt;/h3&gt;&quot;
+if audios:
+    for audio in audios:
+        nombre = os.path.basename(audio)
+        evidencias_html += f&quot;&lt;p&gt;&lt;strong&gt;{nombre}&lt;/strong&gt;&lt;/p&gt;&lt;audio controls&gt;&lt;source src=&#x27;audio/{nombre}&#x27; type=&#x27;audio/mpeg&#x27;&gt;&lt;/audio&gt;&quot;
+else:
+    evidencias_html += &quot;&lt;p&gt;&lt;em&gt;(No se encontraron audios en la carpeta).&lt;/em&gt;&lt;/p&gt;&quot;
+
+# --- NUEVO BLOQUE DE RESULTADOS FINALES ---
+evidencias_html += &quot;&quot;&quot;
+&lt;div class=&quot;conclusion-box&quot; style=&quot;background-color: #fcf3cf; border-left-color: #f1c40f; margin-top: 40px;&quot;&gt;
+    &lt;h3&gt;🏆 La Evidencia y el Análisis Final (Resultados)&lt;/h3&gt;
+    &lt;p&gt;El proyecto no se detuvo en la recolección. Con más de &lt;strong&gt;170 vehículos extraídos&lt;/strong&gt; y documentados, llegó el momento de la verdad. El análisis de datos reveló:&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;strong&gt;La hegemonía de Hyundai y Kia:&lt;/strong&gt; Son las marcas con mayor presencia y precios promedios más altos, demostrando la preferencia por durabilidad y repuestos.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;La paradoja Oferta-Demanda:&lt;/strong&gt; Existe un sesgo hacia los vehículos eléctricos en las ofertas (54%), frente a una preferencia real de los compradores por la combustión debido a la crisis energética.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;La realidad del asfalto:&lt;/strong&gt; Los baches cubanos dañan principalmente la dirección de los autos (cremalleras), lo que afecta directamente su valor de reventa.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;Finalmente, el modelo de &lt;strong&gt;Machine Learning (Random Forest)&lt;/strong&gt; logró cuantificar que el &lt;strong&gt;Año de fabricación (55.5%)&lt;/strong&gt; y la &lt;strong&gt;Marca (Hyundai 33.9%)&lt;/strong&gt; son los factores que más pesan al predecir un precio.&lt;/p&gt;
+&lt;/div&gt;
+&quot;&quot;&quot;
+
+# --- PÁGINA DE HISTORIA Y MODELO ---
+historia_html = &quot;&quot;&quot;
+&lt;h3&gt;Metodología del Modelo Predictivo: Random Forest&lt;/h3&gt;
+&lt;p&gt;Para responder a la pregunta de investigación, implementamos un modelo de &lt;strong&gt;Random Forest Regressor&lt;/strong&gt; (Bosque Aleatorio).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;¿Por qué se utilizó este modelo?&lt;/strong&gt; El mercado automotriz cubano presenta una altísima volatilidad. Los modelos lineales simples se confunden fácilmente ante la presencia de autos de lujo con precios desproporcionados. El Random Forest crea cientos de &quot;árboles de decisión&quot; que votan en conjunto, haciéndolo robusto ante valores atípicos.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Importancia de las variables (Feature Importance):&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;Año de fabricación (55.5%):&lt;/strong&gt; Es el factor número uno que define el precio.&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;Marca Hyundai (33.9%):&lt;/strong&gt; Empuja significativamente el precio hacia arriba.&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;Marca Kia (9.2%):&lt;/strong&gt; Influye en menor medida.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;conclusion-box&quot;&gt;
+    &lt;h3&gt;Conclusiones Finales de la Investigación&lt;/h3&gt;
+    &lt;p&gt;A partir del análisis de más de 170 registros y 15 entrevistas, concluimos que:&lt;/p&gt;
+    &lt;ol&gt;
+        &lt;li&gt;&lt;strong&gt;El año y la marca son los pilares del precio:&lt;/strong&gt; La antigüedad explica más del 50% del valor de un auto en Cuba.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;La durabilidad manda:&lt;/strong&gt; Marcas como Toyota y Hyundai son las más buscadas porque los mecánicos confirman que tienen mayor disponibilidad de repuestos.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;El entorno destruye valor:&lt;/strong&gt; El mal estado de las calles (baches) provoca daños constantes en la dirección y suspensión, afectando el valor real del vehículo.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Transición energética condicionada:&lt;/strong&gt; Aunque los sitios oficiales ofrecen mayoritariamente autos eléctricos, la crisis eléctrica hace que los compradores sigan prefiriendo la combustión.&lt;/li&gt;
+    &lt;/ol&gt;
+    
+    &lt;h4 style=&quot;color: #c0392b; margin-top: 20px;&quot;&gt;🔍 Paradoja Oferta-Demanda&lt;/h4&gt;
+    &lt;p&gt;&lt;em&gt;&quot;Los gráficos muestran que el 54% de los autos a la venta son eléctricos. Sin embargo, las entrevistas demuestran que la demanda real prefiere la gasolina. Esta desconexión indica que el mercado de eléctricos está sobreofertado o que los dueños los revenden por falta de infraestructura para cargarlos.&quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&quot;&quot;&quot;
+
+# --- PÁGINA DE CÓDIGO FUENTE ---
+codigo_html = &quot;&lt;p&gt;Aquí se presentan todos los scripts de Python desarrollados para el proyecto.&lt;/p&gt;&quot;
+archivos_py = sorted(glob.glob(&#x27;code/*.py&#x27;))
+for archivo in archivos_py:
+    nombre = os.path.basename(archivo)
+    try:
+        with open(archivo, &#x27;r&#x27;, encoding=&#x27;utf-8&#x27;) as f:
+            contenido = html.escape(f.read())
+        codigo_html += f&quot;&lt;h3&gt;📄 {nombre}&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;{contenido}&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;&quot;
+    except Exception as e:
+        codigo_html += f&quot;&lt;p&gt;Error al leer {nombre}&lt;/p&gt;&quot;
+
+# --- GUARDAR PÁGINAS ---
+with open(f&#x27;{carpeta_web}/index.html&#x27;, &#x27;w&#x27;, encoding=&#x27;utf-8&#x27;) as f: f.write(plantilla_html(&quot;Inicio&quot;, inicio))
+with open(f&#x27;{carpeta_web}/graficos.html&#x27;, &#x27;w&#x27;, encoding=&#x27;utf-8&#x27;) as f: f.write(plantilla_html(&quot;Análisis Visual&quot;, graficos_html))
+with open(f&#x27;{carpeta_web}/entrevistas.html&#x27;, &#x27;w&#x27;, encoding=&#x27;utf-8&#x27;) as f: f.write(plantilla_html(&quot;Evidencias y Resultados&quot;, evidencias_html))
+with open(f&#x27;{carpeta_web}/historia.html&#x27;, &#x27;w&#x27;, encoding=&#x27;utf-8&#x27;) as f: f.write(plantilla_html(&quot;Metodología y Conclusiones&quot;, historia_html))
+with open(f&#x27;{carpeta_web}/codigo.html&#x27;, &#x27;w&#x27;, encoding=&#x27;utf-8&#x27;) as f: f.write(plantilla_html(&quot;Código Fuente&quot;, codigo_html))
+
+print(&quot;✅ ¡Sitio web &#x27;AutosxCuba&#x27; generado con éxito y actualizado con las conclusiones finales!&quot;)
+print(&quot;👉 Abre &#x27;Sitio_Web_Proyecto/index.html&#x27; en tu navegador para revisar los cambios.&quot;)
+</code></pre><hr><h3>📄 cubadebate.py</h3><pre><code>import requests 
+from bs4 import BeautifulSoup 
+
+url = &quot;http://www.cubadebate.cu/&quot; 
+headers = {&quot;User-Agent&quot;: &quot;Mozilla/5.0&quot;}
+
+respuestas = requests.get(url, headers=headers, timeout=15)
+sopa = BeautifulSoup(respuestas.text, &quot;html.parser&quot;)
+
+print(&quot;Código de respuesta:&quot;,
+respuestas.status_code)
+print(&quot;Titulares:&quot;)
+
+for titular in sopa.find_all(&quot;h2&quot;, limit=5):
+    print(&quot;-&quot;, titular.text.strip())
+</code></pre><hr><h3>📄 generar_graficos.py</h3><pre><code>
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import os
+
+os.makedirs(&#x27;data/graficos&#x27;, exist_ok=True)
+sns.set_theme(style=&quot;whitegrid&quot;)
+
+print(&quot;Cargando dataset...&quot;)
+df = pd.read_csv(&#x27;data/DATASET_PARA_GRAFICOS.csv&#x27;)
+df[&#x27;Precio&#x27;] = pd.to_numeric(df[&#x27;Precio&#x27;], errors=&#x27;coerce&#x27;)
+df[&#x27;Anio&#x27;] = pd.to_numeric(df[&#x27;Anio&#x27;], errors=&#x27;coerce&#x27;)
+
+# ==========================================
+# FILTRO MAESTRO: Solo autos con precios lógicos (1000 a 60,000 USD)
+# ==========================================
+df_real = df[(df[&#x27;Precio&#x27;] &gt;= 1000) &amp; (df[&#x27;Precio&#x27;] &lt;= 60000)].copy()
+
+# ==========================================
+# GRÁFICO 1: Histograma de Precios (Realista)
+# ==========================================
+print(&quot;Generando Gráfico 1...&quot;)
+plt.figure(figsize=(12, 6))
+sns.histplot(data=df_real, x=&#x27;Precio&#x27;, bins=20, kde=True, color=&#x27;skyblue&#x27;)
+plt.axvline(df_real[&#x27;Precio&#x27;].median(), color=&#x27;red&#x27;, linestyle=&#x27;--&#x27;, label=f&#x27;Mediana: ${df_real[&quot;Precio&quot;].median():,.0f}&#x27;)
+plt.title(&#x27;Distribución de Precios Reales en el Mercado (Sin autos de lujo)&#x27;, fontsize=15)
+plt.xlabel(&#x27;Precio (USD)&#x27;)
+plt.ylabel(&#x27;Cantidad de Anuncios&#x27;)
+plt.legend()
+plt.tight_layout()
+plt.savefig(&#x27;data/graficos/01_histograma_precios.png&#x27;)
+plt.close()
+
+# ==========================================
+# GRÁFICO 2: Top 10 Marcas (Precio Promedio Realista)
+# ==========================================
+print(&quot;Generando Gráfico 2...&quot;)
+# Filtramos autos que cuesten menos de 3000 USD (para quitar la basura)
+df_marcas = df[(df[&#x27;Precio&#x27;] &gt; 3000) &amp; (df[&#x27;Precio&#x27;] &lt; 100000) &amp; (df[&#x27;Marca&#x27;] != &#x27;Desconocida&#x27;) &amp; (df[&#x27;Marca&#x27;] != &#x27;Desconocido&#x27;)]
+
+plt.figure(figsize=(12, 6))
+# AQUÍ ESTÁ EL CAMBIO CLAVE: Usamos .median() en lugar de .mean()
+precio_por_marca = df_marcas.groupby(&#x27;Marca&#x27;)[&#x27;Precio&#x27;].median().sort_values(ascending=False).head(10)
+
+sns.barplot(x=precio_por_marca.values, y=precio_por_marca.index, palette=&#x27;viridis&#x27;)
+plt.title(&#x27;Top 10 Marcas por Precio Mediano (Mercado Realista)&#x27;, fontsize=15)
+plt.xlabel(&#x27;Precio Mediano (USD)&#x27;)
+plt.ylabel(&#x27;Marca&#x27;)
+plt.tight_layout()
+plt.savefig(&#x27;data/graficos/02_top_marcas.png&#x27;)
+plt.close()
+
+# ==========================================
+# GRÁFICO 3: Año vs Precio (Solo autos lógicos)
+# ==========================================
+print(&quot;Generando Gráfico 3...&quot;)
+df_anio = df_real[(df_real[&#x27;Anio&#x27;] &gt; 1990)]
+plt.figure(figsize=(12, 6))
+sns.scatterplot(data=df_anio, x=&#x27;Anio&#x27;, y=&#x27;Precio&#x27;, hue=&#x27;Fuente&#x27;, s=100, alpha=0.7)
+plt.title(&#x27;Relación entre Año del Auto y su Precio (Mercado Real)&#x27;, fontsize=15)
+plt.xlabel(&#x27;Año&#x27;)
+plt.ylabel(&#x27;Precio (USD)&#x27;)
+plt.legend(bbox_to_anchor=(1.05, 1), loc=&#x27;upper left&#x27;)
+plt.tight_layout()
+plt.savefig(&#x27;data/graficos/03_anio_vs_precio.png&#x27;)
+plt.close()
+
+# ==========================================
+# GRÁFICO 4: Provincias
+# ==========================================
+print(&quot;Generando Gráfico 4...&quot;)
+df_prov = df[(df[&#x27;Provincias&#x27;] != &#x27;Desconocida&#x27;) &amp; (df[&#x27;Provincias&#x27;] != &#x27;Desconocido&#x27;)]
+plt.figure(figsize=(12, 6))
+provincias = df_prov[&#x27;Provincias&#x27;].value_counts().head(10)
+sns.barplot(x=provincias.values, y=provincias.index, palette=&#x27;magma&#x27;)
+plt.title(&#x27;Top 10 Provincias con Más Anuncios&#x27;, fontsize=15)
+plt.xlabel(&#x27;Cantidad de Anuncios&#x27;)
+plt.ylabel(&#x27;Provincia&#x27;)
+plt.tight_layout()
+plt.savefig(&#x27;data/graficos/04_provincias.png&#x27;)
+plt.close()
+
+# ==========================================
+# GRÁFICO 5: Combustible (FILTRADO SIN DONGEFENG PARA VER LA REALIDAD)
+# ==========================================
+print(&quot;Generando Gráfico 5...&quot;)
+plt.title(&#x27;Oferta de Vehículos por Tipo de Combustible en el Mercado&#x27;, fontsize=15)
+df_comb = df[(df[&#x27;Combustible&#x27;] != &#x27;Desconocido&#x27;) &amp; (df[&#x27;Fuente&#x27;] != &#x27;Dongfeng&#x27;)]
+if not df_comb.empty:
+    plt.figure(figsize=(8, 8))
+    colores = [&#x27;#ff9999&#x27;, &#x27;#66b3ff&#x27;, &#x27;#99ff99&#x27;, &#x27;#ffcc99&#x27;]
+    df_comb[&#x27;Combustible&#x27;].value_counts().plot.pie(autopct=&#x27;%1.1f%%&#x27;, colors=colores, startangle=90)
+    plt.title(&#x27;Combustible Preferido en el Mercado de Usados (Sin Dongfeng)&#x27;, fontsize=15)
+    plt.ylabel(&#x27;&#x27;)
+    plt.tight_layout()
+    plt.savefig(&#x27;data/graficos/05_tipos_combustible.png&#x27;)
+    plt.close()
+
+print(&quot;✅ ¡Los 5 gráficos se han regenerado con filtros realistas!&quot;)
+</code></pre><hr><h3>📄 gnerar_graficos.py</h3><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import os
+
+os.makedirs(&#x27;data/graficos&#x27;, exist_ok=True)
+sns.set_theme(style=&quot;whitegrid&quot;)
+
+print(&quot;Cargando dataset...&quot;)
+df = pd.read_csv(&#x27;data/DATASET_PARA_GRAFICOS.csv&#x27;)
+df[&#x27;Precio&#x27;] = pd.to_numeric(df[&#x27;Precio&#x27;], errors=&#x27;coerce&#x27;)
+df[&#x27;Anio&#x27;] = pd.to_numeric(df[&#x27;Anio&#x27;], errors=&#x27;coerce&#x27;)
+
+# ==========================================
+# FILTRO MAESTRO: Solo autos con precios lógicos (1000 a 60,000 USD)
+# ==========================================
+df_real = df[(df[&#x27;Precio&#x27;] &gt;= 1000) &amp; (df[&#x27;Precio&#x27;] &lt;= 60000)].copy()
+
+# ==========================================
+# GRÁFICO 1: Histograma de Precios (Realista)
+# ==========================================
+print(&quot;Generando Gráfico 1...&quot;)
+plt.figure(figsize=(12, 6))
+sns.histplot(data=df_real, x=&#x27;Precio&#x27;, bins=20, kde=True, color=&#x27;skyblue&#x27;)
+plt.axvline(df_real[&#x27;Precio&#x27;].median(), color=&#x27;red&#x27;, linestyle=&#x27;--&#x27;, label=f&#x27;Mediana: ${df_real[&quot;Precio&quot;].median():,.0f}&#x27;)
+plt.title(&#x27;Distribución de Precios Reales en el Mercado (Sin autos de lujo)&#x27;, fontsize=15)
+plt.xlabel(&#x27;Precio (USD)&#x27;)
+plt.ylabel(&#x27;Cantidad de Anuncios&#x27;)
+plt.legend()
+plt.tight_layout()
+plt.savefig(&#x27;data/graficos/01_histograma_precios.png&#x27;)
+plt.close()
+
+# ==========================================
+# GRÁFICO 2: Top 10 Marcas (Precio Promedio Realista)
+# ==========================================
+print(&quot;Generando Gráfico 2...&quot;)
+df_marcas = df_real[(df_real[&#x27;Marca&#x27;] != &#x27;Desconocida&#x27;) &amp; (df_real[&#x27;Marca&#x27;] != &#x27;Desconocido&#x27;)]
+plt.figure(figsize=(12, 6))
+precio_por_marca = df_marcas.groupby(&#x27;Marca&#x27;)[&#x27;Precio&#x27;].mean().sort_values(ascending=False).head(10)
+sns.barplot(x=precio_por_marca.values, y=precio_por_marca.index, palette=&#x27;viridis&#x27;)
+plt.title(&#x27;Top 10 Marcas por Precio Promedio (Rango Normal de Mercado)&#x27;, fontsize=15)
+plt.xlabel(&#x27;Precio Promedio (USD)&#x27;)
+plt.ylabel(&#x27;Marca&#x27;)
+plt.tight_layout()
+plt.savefig(&#x27;data/graficos/02_top_marcas.png&#x27;)
+plt.close()
+
+# ==========================================
+# GRÁFICO 3: Año vs Precio (Solo autos lógicos)
+# ==========================================
+print(&quot;Generando Gráfico 3...&quot;)
+df_anio = df_real[(df_real[&#x27;Anio&#x27;] &gt; 1990)]
+plt.figure(figsize=(12, 6))
+sns.scatterplot(data=df_anio, x=&#x27;Anio&#x27;, y=&#x27;Precio&#x27;, hue=&#x27;Fuente&#x27;, s=100, alpha=0.7)
+plt.title(&#x27;Relación entre Año del Auto y su Precio (Mercado Real)&#x27;, fontsize=15)
+plt.xlabel(&#x27;Año&#x27;)
+plt.ylabel(&#x27;Precio (USD)&#x27;)
+plt.legend(bbox_to_anchor=(1.05, 1), loc=&#x27;upper left&#x27;)
+plt.tight_layout()
+plt.savefig(&#x27;data/graficos/03_anio_vs_precio.png&#x27;)
+plt.close()
+
+# ==========================================
+# GRÁFICO 4: Provincias
+# ==========================================
+print(&quot;Generando Gráfico 4...&quot;)
+df_prov = df[(df[&#x27;Provincias&#x27;] != &#x27;Desconocida&#x27;) &amp; (df[&#x27;Provincias&#x27;] != &#x27;Desconocido&#x27;)]
+plt.figure(figsize=(12, 6))
+provincias = df_prov[&#x27;Provincias&#x27;].value_counts().head(10)
+sns.barplot(x=provincias.values, y=provincias.index, palette=&#x27;magma&#x27;)
+plt.title(&#x27;Top 10 Provincias con Más Anuncios&#x27;, fontsize=15)
+plt.xlabel(&#x27;Cantidad de Anuncios&#x27;)
+plt.ylabel(&#x27;Provincia&#x27;)
+plt.tight_layout()
+plt.savefig(&#x27;data/graficos/04_provincias.png&#x27;)
+plt.close()
+
+# ==========================================
+# GRÁFICO 5: Combustible (FILTRADO SIN DONGEFENG PARA VER LA REALIDAD)
+# ==========================================
+print(&quot;Generando Gráfico 5...&quot;)
+# Quitamos Dongfeng para ver qué prefiere la gente en el mercado informal (usados)
+df_comb = df[(df[&#x27;Combustible&#x27;] != &#x27;Desconocido&#x27;) &amp; (df[&#x27;Fuente&#x27;] != &#x27;Dongfeng&#x27;)]
+if not df_comb.empty:
+    plt.figure(figsize=(8, 8))
+    colores = [&#x27;#ff9999&#x27;, &#x27;#66b3ff&#x27;, &#x27;#99ff99&#x27;, &#x27;#ffcc99&#x27;]
+    df_comb[&#x27;Combustible&#x27;].value_counts().plot.pie(autopct=&#x27;%1.1f%%&#x27;, colors=colores, startangle=90)
+    plt.title(&#x27;Combustible Preferido en el Mercado de Usados (Sin Dongfeng)&#x27;, fontsize=15)
+    plt.ylabel(&#x27;&#x27;)
+    plt.tight_layout()
+    plt.savefig(&#x27;data/graficos/05_tipos_combustible.png&#x27;)
+    plt.close()
+
+# ==========================================
+# GRÁFICO 6: Top Modelos
+# ==========================================
+print(&quot;Generando Gráfico 6...&quot;)
+df_modelos = df[~df[&#x27;Modelo&#x27;].isin([&#x27;Desconocido&#x27;, &#x27;Nan&#x27;, &#x27;None&#x27;, &#x27;0&#x27;])].copy()
+if not df_modelos.empty:
+    df_modelos[&#x27;Modelo_Limpio&#x27;] = df_modelos[&#x27;Modelo&#x27;].astype(str).str.strip().str.title()
+    plt.figure(figsize=(12, 6))
+    top_modelos = df_modelos[&#x27;Modelo_Limpio&#x27;].value_counts().head(10)
+    sns.barplot(x=top_modelos.values, y=top_modelos.index, palette=&#x27;coolwarm&#x27;)
+    plt.title(&#x27;Top 10 Modelos Más Publicados&#x27;, fontsize=15)
+    plt.xlabel(&#x27;Cantidad de Anuncios&#x27;)
+    plt.ylabel(&#x27;Modelo&#x27;)
+    plt.tight_layout()
+    plt.savefig(&#x27;data/graficos/06_top_modelos.png&#x27;)
+    plt.close()
+
+print(&quot;✅ ¡Los 6 gráficos se han regenerado con filtros realistas!&quot;)
+</code></pre><hr><h3>📄 mejorar_datos_finales.py</h3><pre><code>import pandas as pd
+
+print(&quot;Mejorando la calidad del dataset...&quot;)
+df = pd.read_csv(&#x27;data/PROYECTO_AUTOS_DATASET_OFICIAL.csv&#x27;)
+
+# 1. Limpiar precios y años
+df[&#x27;Precio&#x27;] = pd.to_numeric(df[&#x27;Precio&#x27;], errors=&#x27;coerce&#x27;)
+df[&#x27;Anio&#x27;] = pd.to_numeric(df[&#x27;Anio&#x27;], errors=&#x27;coerce&#x27;)
+
+# 2. Rellenar &quot;Papeles&quot; si dice &quot;particular&quot; en la descripción
+def buscar_papeles(texto):
+    if pd.isna(texto): return &#x27;Desconocido&#x27;
+    texto = str(texto).lower()
+    if &#x27;particular&#x27; in texto: return &#x27;Particular&#x27;
+    if &#x27;estatal&#x27; in texto or &#x27;estado&#x27; in texto: return &#x27;Estatal&#x27;
+    return &#x27;Desconocido&#x27;
+
+df[&#x27;Papeles&#x27;] = df.apply(lambda row: buscar_papeles(row[&#x27;Descripcion_Cruda&#x27;]) if row[&#x27;Papeles&#x27;] == &#x27;Desconocido&#x27; else row[&#x27;Papeles&#x27;], axis=1)
+
+# 3. Rellenar &quot;Combustible&quot; si lo menciona en el texto
+def buscar_combustible(texto):
+    if pd.isna(texto): return &#x27;Desconocido&#x27;
+    texto = str(texto).lower()
+    if &#x27;eléctrico&#x27; in texto or &#x27;electrico&#x27; in texto: return &#x27;Eléctrico&#x27;
+    if &#x27;híbrido&#x27; in texto or &#x27;hibrido&#x27; in texto: return &#x27;Híbrido&#x27;
+    if &#x27;diésel&#x27; in texto or &#x27;diesel&#x27; in texto: return &#x27;Diésel&#x27;
+    if &#x27;gasolina&#x27; in texto: return &#x27;Gasolina&#x27;
+    return &#x27;Desconocido&#x27;
+
+df[&#x27;Combustible&#x27;] = df[&#x27;Descripcion_Cruda&#x27;].apply(buscar_combustible)
+
+# 4. GUARDAMOS TODO (Sin borrar filas)
+df.to_csv(&#x27;data/DATASET_PARA_GRAFICOS.csv&#x27;, index=False)
+
+print(f&quot;✅ Datos mejorados.&quot;)
+print(f&quot;Total de registros listos para graficar: {len(df)} registros.&quot;)
+</code></pre><hr><h3>📄 modelo_predictivo.py</h3><pre><code>import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+
+print(&quot;Cargando datos para el modelo...&quot;)
+# Cargamos el dataset unificado
+df = pd.read_csv(&#x27;data/PROYECTO_AUTOS_DATASET_OFICIAL.csv&#x27;)
+
+# 1. Limpieza y filtrado para el modelo
+df[&#x27;Precio&#x27;] = pd.to_numeric(df[&#x27;Precio&#x27;], errors=&#x27;coerce&#x27;)
+df[&#x27;Anio&#x27;] = pd.to_numeric(df[&#x27;Anio&#x27;], errors=&#x27;coerce&#x27;)
+
+# Filtramos: quitamos precios en 0, menores a 1000 y mayores a 100k para que el modelo aprenda mejor
+df_modelo = df[(df[&#x27;Precio&#x27;] &gt; 1000) &amp; (df[&#x27;Precio&#x27;] &lt; 100000) &amp; (df[&#x27;Anio&#x27;] &gt; 1990)].copy()
+
+# 2. Definir variables predictoras (X) y la variable objetivo (y)
+X = df_modelo[[&#x27;Anio&#x27;, &#x27;Marca&#x27;]]
+y = df_modelo[&#x27;Precio&#x27;]
+
+# 3. Dividir los datos en Entrenamiento (80%) y Prueba (20%)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 4. Crear el Pipeline (Preprocesar texto y entrenar el modelo)
+# Usamos OneHotEncoder para convertir la Marca (texto) en números
+preprocesador = ColumnTransformer(
+    transformers=[(&#x27;cat&#x27;, OneHotEncoder(handle_unknown=&#x27;ignore&#x27;), [&#x27;Marca&#x27;])],
+    remainder=&#x27;passthrough&#x27;
+)
+
+# Utilizamos Random Forest Regressor (Bosque Aleatorio)
+modelo = Pipeline(steps=[
+    (&#x27;preprocesador&#x27;, preprocesador),
+    (&#x27;regresor&#x27;, RandomForestRegressor(n_estimators=100, random_state=42))
+])
+
+# 5. Entrenar el modelo
+print(&quot;Entrenando el modelo Random Forest...&quot;)
+modelo.fit(X_train, y_train)
+
+# 6. Evaluar el modelo
+y_pred = modelo.predict(X_test)
+mae = mean_absolute_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(&quot;\n=== RESULTADOS DEL MODELO PREDICTIVO ===&quot;)
+print(f&quot;Error Absoluto Medio (MAE): ${mae:,.2f} USD&quot;)
+print(f&quot;Precisión del modelo (R2): {r2:.2f} (Máximo 1.0)&quot;)
+print(&quot;=======================================&quot;)
+
+# 7. Mostrar la importancia de las variables (Feature Importance)
+importancias = modelo.named_steps[&#x27;regresor&#x27;].feature_importances_
+nombres = modelo.named_steps[&#x27;preprocesador&#x27;].get_feature_names_out()
+
+print(&quot;\nImportancia de las variables (¿Qué define el precio?):&quot;)
+for nombre, imp in sorted(zip(nombres, importancias), key=lambda x: x[1], reverse=True)[:5]:
+    print(f&quot;- {nombre.replace(&#x27;cat__Marca_&#x27;, &#x27;Marca: &#x27;)}: {imp*100:.1f}%&quot;)
+</code></pre><hr><h3>📄 noticias_cubanet.py</h3><pre><code>import requests
+from bs4 import BeautifulSoup 
+url = &quot;https://www.cubanet.org/&quot; 
+headers = {&quot;User Agent&quot;: &quot;Mozilla/5.0 (x11; Linux x86_64)&quot;} 
+respuestas =requests.get(url,headers=headers) 
+sopa = BeautifulSoup(respuestas.text, &quot;html.parser&quot;)
+print(&quot;Código de respuesta:&quot;, respuestas.status_code)
+print(&quot;---Títulos de la página:---&quot;, sopa.title.text)
+for titular in sopa.find_all(&quot;h3&quot;, limit=5):
+    print(&quot;-&quot;, titular.text.strip())
+</code></pre><hr><h3>📄 scrape_autocubana.py</h3><pre><code>#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+&quot;&quot;&quot;
+Script de Web Scraping para extraer el catálogo de vehículos en venta
+de la página web: https://www.autocubana.com/es
+Guarda los resultados en un archivo CSV dentro de la carpeta data/.
+&quot;&quot;&quot;
+
+# ============================================================
+# 1. IMPORTACIONES DE LIBRERÍAS
+# ============================================================
+
+# requests: librería para hacer peticiones HTTP (descargar páginas web)
+import requests
+
+# BeautifulSoup: librería para analizar el HTML y buscar datos dentro de él
+from bs4 import BeautifulSoup
+
+# csv: librería nativa de Python para crear y escribir archivos CSV
+import csv
+
+# os: librería para trabajar con rutas de archivos y carpetas del sistema
+import os
+
+# time: librería para añadir pausas entre peticiones (ser respetuosos con el servidor)
+import time
+
+# re: librería para usar expresiones regulares (buscar patrones dentro de texto)
+import re
+
+# urljoin: función para construir URLs completas a partir de una base y una ruta relativa
+from urllib.parse import urljoin
+
+# Intentamos importar curl_cffi como respaldo para cuando la página devuelva error 403.
+# curl_cffi simula un navegador real y puede evadir algunos bloqueos anti-bot.
+try:
+    from curl_cffi import requests as curl_requests
+    CURL_DISPONIBLE = True
+except ImportError:
+    # Si curl_ccci no está instalado, continuamos solo con requests
+    CURL_DISPONIBLE = False
+    print(&quot;[AVISO] curl_cffi no está instalado. Solo se usará requests como respaldo.&quot;)
+
+
+# ============================================================
+# 2. CONFIGURACIÓN Y CONSTANTES DEL SCRIPT
+# ============================================================
+
+# URL base del sitio web (sin barra final)
+URL_BASE = &quot;https://www.autocubana.com&quot;
+
+# URL de la página principal donde se muestran los anuncios de vehículos
+URL_PAGINA_PRINCIPAL = f&quot;{URL_BASE}/es&quot;
+
+# Nombre de la carpeta donde se guardará el archivo CSV
+CARPETA_DATA = &quot;data&quot;
+
+# Nombre exacto del archivo CSV de salida
+NOMBRE_CSV = &quot;autocubana_autos.csv&quot;
+
+# Ruta completa del archivo CSV (carpeta + nombre)
+RUTA_CSV = os.path.join(CARPETA_DATA, NOMBRE_CSV)
+
+# Tiempo de espera entre peticiones HTTP en segundos (requisito: time.sleep(2))
+TIEMPO_ESPERA = 2
+
+# Lista con los nombres exactos de las columnas que tendrá el CSV
+COLUMNAS_CSV = [
+    &quot;Marca&quot;,
+    &quot;Modelo&quot;,
+    &quot;Anio&quot;,
+    &quot;Precio&quot;,
+    &quot;Moneda&quot;,
+    &quot;Papeles&quot;,
+    &quot;Provincias&quot;,
+    &quot;Uso_y_Desgaste&quot;,
+    &quot;Mecanicas_y_Dimensiones&quot;,
+    &quot;URL_Anuncio&quot;,
+    &quot;Descripcion_Cruda&quot;
+]
+
+# Encabezados HTTP que simulan un navegador web real (Chrome).
+# Esto ayuda a evitar que el servidor rechace las peticiones por parecer de un bot.
+ENCABEZADOS_NAVEGADOR = {
+    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) &quot;
+                  &quot;AppleWebKit/537.36 (KHTML, like Gecko) &quot;
+                  &quot;Chrome/120.0.0.0 Safari/537.36&quot;,
+    &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,
+    &quot;Accept-Language&quot;: &quot;es-ES,es;q=0.9,en;q=0.8&quot;,
+}
+
+# Lista de provincias cubanas conocidas, para ayudar a identificar la provincia
+# de cada anuncio desde el texto o los enlaces de la página.
+PROVINCIAS_CUBA = [
+    &quot;Pinar del Rio&quot;, &quot;Artemisa&quot;, &quot;Mayabeque&quot;, &quot;La Habana&quot;, &quot;Habana&quot;,
+    &quot;Matanzas&quot;, &quot;Cienfuegos&quot;, &quot;Villa Clara&quot;, &quot;Sancti Spiritus&quot;,
+    &quot;Ciego de Avila&quot;, &quot;Camaguey&quot;, &quot;Las Tunas&quot;, &quot;Holguin&quot;, &quot;Granma&quot;,
+    &quot;Santiago de Cuba&quot;, &quot;Guantanamo&quot;
+]
+
+
+# ============================================================
+# 3. FUNCIONES AUXILIARES (pequeñas herramientas reutilizables)
+# ============================================================
+
+def obtener_html(url):
+    &quot;&quot;&quot;
+    Descarga el contenido HTML de una página web.
+    Si la página devuelve un error 403, intenta usar curl_cffi como respaldo.
+    Devuelve el HTML como texto (str) o None si falla.
+    &quot;&quot;&quot;
+    try:
+        # --- PRIMER INTENTO: usar requests ---
+        respuesta = requests.get(url, headers=ENCABEZADOS_NAVEGADOR, timeout=15)
+
+        # Si todo salió bien (código 200), devolvemos el HTML
+        if respuesta.status_code == 200:
+            return respuesta.text
+
+        # Si el servidor bloqueó el acceso (código 403), usamos curl_cffi
+        elif respuesta.status_code == 403:
+            print(f&quot;    [!] Error 403 recibido en {url}. Intentando con curl_cffi...&quot;)
+            if CURL_DISPONIBLE:
+                try:
+                    # curl_cffi con impersonate=&quot;chrome&quot; simula ser Chrome real
+                    respuesta_curl = curl_requests.get(url, impersonate=&quot;chrome&quot;, timeout=15)
+                    if respuesta_curl.status_code == 200:
+                        return respuesta_curl.text
+                    else:
+                        print(f&quot;    [X] curl_cffi devolvió código {respuesta_curl.status_code}&quot;)
+                except Exception as e_curl:
+                    print(f&quot;    [X] Error con curl_cffi: {e_curl}&quot;)
+            else:
+                print(&quot;    [X] curl_cffi no está disponible.&quot;)
+            return None
+
+        # Para cualquier otro código de error HTTP
+        else:
+            print(f&quot;    [!] Código HTTP {respuesta.status_code} para {url}&quot;)
+            return None
+
+    except requests.exceptions.RequestException as e:
+        # Capturamos cualquier error de red (sin conexión, timeout, DNS, etc.)
+        print(f&quot;    [X] Error de red al acceder a {url}: {e}&quot;)
+        return None
+
+
+def extraer_urls_anuncios(html_pagina_principal):
+    &quot;&quot;&quot;
+    Busca en el HTML de la página principal todos los enlaces que lleven
+    a anuncios individuales de vehículos (patrón: /ads/anuncio-...).
+    Devuelve una lista ordenada de URLs completas.
+    &quot;&quot;&quot;
+    # Creamos el objeto BeautifulSoup para poder buscar dentro del HTML
+    sopa = BeautifulSoup(html_pagina_principal, &quot;html.parser&quot;)
+
+    # Usamos un set() para guardar URLs únicas (los sets eliminan duplicados automáticamente)
+    urls_encontradas = set()
+
+    # Buscamos TODOS los enlaces &lt;a&gt; que tengan un atributo href
+    for enlace in sopa.find_all(&quot;a&quot;, href=True):
+        # Obtenemos la dirección del enlace
+        href = enlace[&quot;href&quot;]
+
+        # Verificamos si el enlace apunta a un anuncio de vehículo
+        if &quot;/ads/anuncio-&quot; in href:
+            # urljoin construye la URL completa: URL_BASE + href
+            # (por ejemplo: https://www.autocubana.com + /es/ads/anuncio-...)
+            url_completa = urljoin(URL_BASE, href)
+            urls_encontradas.add(url_completa)
+
+    # Convertimos el set a lista, la ordenamos alfabéticamente y la devolvemos
+    return sorted(list(urls_encontradas))
+
+
+def extraer_provincia(sopa, url_anuncio):
+    &quot;&quot;&quot;
+    Intenta obtener el nombre de la provincia del anuncio.
+    Usa dos métodos:
+    1) Busca un encabezado &lt;h2&gt; con el patrón &#x27;... en {Provincia}&#x27;
+    2) Analiza la URL del anuncio para extraer la provincia
+    Si falla, devuelve &#x27;No especificada&#x27;.
+    &quot;&quot;&quot;
+    # --- MÉTODO 1: Buscar en los encabezados &lt;h2&gt; ---
+    for h2 in sopa.find_all(&quot;h2&quot;):
+        texto_h2 = h2.get_text(strip=True)
+        # Buscamos el patrón &quot;en {Provincia}&quot; al final del texto
+        # Por ejemplo: &quot;Comprar carros Toyota en Holguin&quot; -&gt; &quot;Holguin&quot;
+        coincidencia = re.search(r&#x27;\ben\s+(.+)$&#x27;, texto_h2)
+        if coincidencia:
+            provincia_candidata = coincidencia.group(1).strip()
+            # Verificamos que coincida con una provincia cubana conocida
+            for prov in PROVINCIAS_CUBA:
+                if prov.lower() in provincia_candidata.lower():
+                    return prov
+            # Si no coincide con la lista, igual devolvemos el texto encontrado
+            if len(provincia_candidata) &lt; 30:
+                return provincia_candidata
+
+    # --- MÉTODO 2: Analizar la URL del anuncio ---
+    # La URL tiene el formato: anuncio-{marca}-{modelo}-{provincia}-{ciudad}-{id}
+    # Por ejemplo: anuncio-toyota-rav4-holguin-antilla-3415
+    # Buscamos la provincia en las partes de la URL
+    partes_url = url_anuncio.rstrip(&quot;/&quot;).split(&quot;/&quot;)
+    ultima_parte = partes_url[-1]  # ej: &quot;anuncio-toyota-rav4-holguin-antilla-3415&quot;
+    # Eliminamos el prefijo &quot;anuncio-&quot; y el sufijo numérico
+    limpio = re.sub(r&#x27;^anuncio-&#x27;, &#x27;&#x27;, ultima_parte)
+    limpio = re.sub(r&#x27;-\d+$&#x27;, &#x27;&#x27;, limpio)  # quitamos el ID numérico final
+    # Buscamos alguna provincia conocida dentro de la cadena
+    for prov in PROVINCIAS_CUBA:
+        patron_prov = prov.lower().replace(&quot; &quot;, &quot;-&quot;)
+        if patron_prov in limpio:
+            return prov
+
+    # Si ningún método funcionó
+    return &quot;No especificada&quot;
+
+
+def extraer_marca_desde_enlaces(sopa):
+    &quot;&quot;&quot;
+    Intenta extraer la marca del vehículo desde los enlaces de la página.
+    Busca enlaces como: /anuncios-Carro-Toyota o /anuncios-Moto-BMW
+    Devuelve la marca como texto o cadena vacía si no la encuentra.
+    &quot;&quot;&quot;
+    # Definimos los prefijos de tipo de vehículo que usa el sitio
+    prefijos_tipo = [&quot;/anuncios-Carro-&quot;, &quot;/anuncios-Moto-&quot;, &quot;/anuncios-Utilitario-&quot;]
+
+    for enlace in sopa.find_all(&quot;a&quot;, href=True):
+        href = enlace[&quot;href&quot;]
+        # Verificamos si el enlace coincide con algún prefijo de tipo Y no es de provincia
+        for prefijo in prefijos_tipo:
+            if href.startswith(prefijo) and &quot;-en-&quot; not in href:
+                # Extraemos la parte después del prefijo (la marca)
+                # Por ejemplo: /anuncios-Carro-Toyota -&gt; &quot;Toyota&quot;
+                marca = href[len(prefijo):]
+                # Limpiamos caracteres no deseados
+                marca = marca.replace(&quot;%20&quot;, &quot; &quot;).strip()
+                if marca and len(marca) &lt; 30:
+                    return marca
+    return &quot;&quot;
+
+
+def limpiar_precio(texto_precio):
+    &quot;&quot;&quot;
+    Limpia el texto del precio para obtener solo el número.
+    Por ejemplo: &quot;16 000&quot; -&gt; &quot;16000&quot;, &quot;1 111&quot; -&gt; &quot;1111&quot;
+    Si no hay número (como &quot;NEGOTIABLE&quot;), devuelve cadena vacía.
+    &quot;&quot;&quot;
+    # Eliminamos espacios y comas del texto
+    texto_limpio = texto_precio.replace(&quot; &quot;, &quot;&quot;).replace(&quot;,&quot;, &quot;&quot;)
+    # Buscamos si hay dígitos en el texto
+    coincidencia = re.search(r&#x27;\d+&#x27;, texto_limpio)
+    if coincidencia:
+        return coincidencia.group(0)
+    return &quot;&quot;
+
+
+# ============================================================
+# 4. FUNCIÓN PRINCIPAL PARA PARSEAR CADA ANUNCIO INDIVIDUAL
+# ============================================================
+
+def parsear_anuncio(url_anuncio):
+    &quot;&quot;&quot;
+    Descarga la página de un anuncio individual y extrae toda la información
+    solicitada: Marca, Modelo, Año, Precio, Moneda, Papeles, Provincia, etc.
+    Devuelve un diccionario con los datos o None si falla.
+    &quot;&quot;&quot;
+    # Descargamos el HTML de la página del anuncio
+    html_anuncio = obtener_html(url_anuncio)
+
+    # Si no pudimos descargar la página, devolvemos None
+    if html_anuncio is None:
+        print(f&quot;    [X] No se pudo descargar: {url_anuncio}&quot;)
+        return None
+
+    # Creamos el objeto BeautifulSoup para analizar el HTML
+    sopa = BeautifulSoup(html_anuncio, &quot;html.parser&quot;)
+
+    # Inicializamos un diccionario con todos los campos vacíos
+    datos = {
+        &quot;Marca&quot;: &quot;&quot;,
+        &quot;Modelo&quot;: &quot;&quot;,
+        &quot;Anio&quot;: &quot;&quot;,
+        &quot;Precio&quot;: &quot;&quot;,
+        &quot;Moneda&quot;: &quot;&quot;,
+        &quot;Papeles&quot;: &quot;No especificado&quot;,
+        &quot;Provincias&quot;: &quot;&quot;,
+        &quot;Uso_y_Desgaste&quot;: &quot;No especificado&quot;,
+        &quot;Mecanicas_y_Dimensiones&quot;: &quot;&quot;,
+        &quot;URL_Anuncio&quot;: url_anuncio,
+        &quot;Descripcion_Cruda&quot;: &quot;&quot;
+    }
+
+    # --- EXTRAER MARCA Y MODELO ---
+    # El título del anuncio está en un &lt;h2&gt; dentro de div.ad-title
+    div_titulo = sopa.find(&quot;div&quot;, class_=&quot;ad-title&quot;)
+    if div_titulo:
+        h2_titulo = div_titulo.find(&quot;h2&quot;)
+        if h2_titulo:
+            texto_titulo = h2_titulo.get_text(strip=True)
+            # Separamos por el primer espacio para separar marca y modelo
+            # Por ejemplo: &quot;Toyota RAV4&quot; -&gt; Marca=&quot;Toyota&quot;, Modelo=&quot;RAV4&quot;
+            partes = texto_titulo.split(&quot; &quot;, 1)
+            if len(partes) &gt;= 2:
+                datos[&quot;Marca&quot;] = partes[0]
+                datos[&quot;Modelo&quot;] = partes[1]
+            else:
+                # Si solo hay una palabra, la usamos como modelo
+                datos[&quot;Modelo&quot;] = texto_titulo
+
+    # Intentamos mejorar la marca usando los enlaces de la página
+    marca_en_enlace = extraer_marca_desde_enlaces(sopa)
+    if marca_en_enlace:
+        datos[&quot;Marca&quot;] = marca_en_enlace
+        # Si la marca cambió, ajustamos el modelo quitando la marca del título
+        if datos[&quot;Modelo&quot;].startswith(datos[&quot;Marca&quot;]):
+            datos[&quot;Modelo&quot;] = datos[&quot;Modelo&quot;][len(datos[&quot;Marca&quot;]):].strip()
+
+    # --- EXTRAER PROPIEDADES DEL VEHÍCULO (Año, Motor, etc.) ---
+    # Las propiedades están en div.vehicle-properties, cada una en un div.prop
+    lista_mecanicas = []
+    div_props = sopa.find(&quot;div&quot;, class_=&quot;vehicle-properties&quot;)
+    if div_props:
+        for prop in div_props.find_all(&quot;div&quot;, class_=&quot;prop&quot;):
+            # Cada prop tiene dos &lt;span&gt;: el nombre y el valor
+            spans = prop.find_all(&quot;span&quot;)
+            if len(spans) &gt;= 2:
+                # Obtenemos el nombre y valor usando el atributo &quot;title&quot; del span
+                nombre = spans[0].get(&quot;title&quot;, spans[0].get_text(strip=True))
+                valor = spans[1].get(&quot;title&quot;, spans[1].get_text(strip=True))
+
+                # Si es el Año, lo guardamos en su campo específico
+                if nombre == &quot;Año&quot;:
+                    datos[&quot;Anio&quot;] = valor
+
+                # Si es la Condición (Usados/Nuevos), lo guardamos como Uso_y_Desgaste
+                elif nombre == &quot;Condición&quot;:
+                    datos[&quot;Uso_y_Desgaste&quot;] = valor
+
+                # Para el resto de propiedades (Motor, Caja, Km, etc.),
+                # las acumulamos en la lista de mecánicas y dimensiones
+                if nombre not in (&quot;Año&quot;, &quot;Color&quot;):
+                    lista_mecanicas.append(f&quot;{nombre}: {valor}&quot;)
+
+    # Unimos todas las propiedades con &quot; | &quot; para el campo Mecanicas_y_Dimensiones
+    datos[&quot;Mecanicas_y_Dimensiones&quot;] = &quot; | &quot;.join(lista_mecanicas)
+
+    # --- EXTRAER PRECIO Y MONEDA ---
+    div_precio = sopa.find(&quot;div&quot;, class_=&quot;ad-price&quot;)
+    if div_precio:
+        # Buscamos el span con la clase &quot;price&quot; que contiene el número
+        span_precio = div_precio.find(&quot;span&quot;, class_=&quot;price&quot;)
+        if span_precio:
+            # Hay un precio numérico (ej: &quot;16 000&quot;)
+            texto_precio = span_precio.get_text(strip=True)
+            datos[&quot;Precio&quot;] = limpiar_precio(texto_precio)
+
+            # La moneda está en el texto del div.ad-price que NO está en el span.price
+            # Por ejemplo: &quot;CUC&quot; aparece antes del número
+            texto_completo = div_precio.get_text(strip=True)
+            # Eliminamos el precio del texto completo para quedarnos con la moneda
+            moneda = texto_completo.replace(texto_precio, &quot;&quot;).strip()
+            datos[&quot;Moneda&quot;] = moneda if moneda else &quot;No especificada&quot;
+        else:
+            # No hay span.price, el texto completo es la moneda/estado
+            # Por ejemplo: &quot;NEGOTIABLE&quot; (negociable)
+            texto_precio = div_precio.get_text(strip=True)
+            if &quot;NEGOTIABLE&quot; in texto_precio.upper() or &quot;NEGOCIABLE&quot; in texto_precio.upper():
+                datos[&quot;Moneda&quot;] = &quot;NEGOTIABLE&quot;
+                datos[&quot;Precio&quot;] = &quot;&quot;
+            else:
+                datos[&quot;Moneda&quot;] = texto_precio
+
+    # --- EXTRAER PROVINCIA ---
+    datos[&quot;Provincias&quot;] = extraer_provincia(sopa, url_anuncio)
+
+    # --- EXTRAER DESCRIPCIÓN CRUDA (comentario del vendedor) ---
+    div_comentario = sopa.find(&quot;div&quot;, class_=&quot;ad-seller-comment&quot;)
+    if div_comentario:
+        # Buscamos el div interior con clase &quot;comment-wrapper&quot; que tiene el texto real
+        div_wrapper = div_comentario.find(&quot;div&quot;, class_=&quot;comment-wrapper&quot;)
+        if div_wrapper:
+            # get_text() obtiene todo el texto visible, con saltos de línea
+            datos[&quot;Descripcion_Cruda&quot;] = div_wrapper.get_text(separator=&quot;\n&quot;, strip=True)
+        else:
+            # Si no hay wrapper, tomamos todo el texto del comentario
+            datos[&quot;Descripcion_Cruda&quot;] = div_comentario.get_text(separator=&quot;\n&quot;, strip=True)
+
+    # --- BUSCAR PAPELES EN LA DESCRIPCIÓN ---
+    # &quot;Papeles&quot; no es un campo estándar del sitio, así que buscamos
+    # palabras clave en la descripción del vendedor
+    descripcion_lower = datos[&quot;Descripcion_Cruda&quot;].lower()
+    keywords_papeles = [&quot;papeles&quot;, &quot;documentos&quot;, &quot;tarjeta&quot;, &quot;factura&quot;,
+                        &quot;placa&quot;, &quot;registro&quot;, &quot;original&quot;, &quot;duplicado&quot;]
+    for keyword in keywords_papeles:
+        if keyword in descripcion_lower:
+            # Si encontramos la palabra clave, intentamos extraer una frase alrededor
+            indice = descripcion_lower.find(keyword)
+            inicio = max(0, indice - 30)
+            fin = min(len(datos[&quot;Descripcion_Cruda&quot;]), indice + 50)
+            fragmento = datos[&quot;Descripcion_Cruda&quot;][inicio:fin].strip()
+            datos[&quot;Papeles&quot;] = fragmento
+            break
+
+    # --- BUSCAR INFORMACIÓN DE USO Y DESGASTE EN LA DESCRIPCIÓN ---
+    keywords_uso = [&quot;excelente estado&quot;, &quot;buen estado&quot;, &quot;como nuevo&quot;,
+                    &quot;revisado&quot;, &quot;mantenimiento&quot;, &quot;desgaste&quot;, &quot;golpes&quot;,
+                    &quot;rayones&quot;, &quot;estreno&quot;, &quot;recién&quot;]
+    for keyword in keywords_uso:
+        if keyword in descripcion_lower:
+            indice = descripcion_lower.find(keyword)
+            inicio = max(0, indice - 20)
+            fin = min(len(datos[&quot;Descripcion_Cruda&quot;]), indice + 60)
+            fragmento = datos[&quot;Descripcion_Cruda&quot;][inicio:fin].strip()
+            # Solo sobrescribimos si el valor actual es el default
+            if datos[&quot;Uso_y_Desgaste&quot;] == &quot;No especificado&quot;:
+                datos[&quot;Uso_y_Desgaste&quot;] = fragmento
+            break
+
+    return datos
+
+
+# ============================================================
+# 5. FUNCIÓN PRINCIPAL DEL SCRIPT
+# ============================================================
+
+def main():
+    &quot;&quot;&quot;
+    Función principal que orquesta todo el proceso de scraping:
+    1. Descarga la página principal
+    2. Extrae las URLs de todos los anuncios
+    3. Visita cada anuncio y extrae los datos
+    4. Guarda todo en un archivo CSV
+    &quot;&quot;&quot;
+    print(&quot;=&quot; * 60)
+    print(&quot;  SCRIPT DE WEB SCRAPING - AutoCubana.com&quot;)
+    print(&quot;=&quot; * 60)
+
+    # --- PASO 1: Crear la carpeta data/ si no existe ---
+    os.makedirs(CARPETA_DATA, exist_ok=True)
+    print(f&quot;\n[1] Carpeta &#x27;{CARPETA_DATA}/&#x27; lista para guardar el CSV.&quot;)
+
+    # --- PASO 2: Descargar la página principal ---
+    print(f&quot;\n[2] Descargando página principal: {URL_PAGINA_PRINCIPAL}&quot;)
+    html_principal = obtener_html(URL_PAGINA_PRINCIPAL)
+
+    if html_principal is None:
+        print(&quot;    [X] No se pudo descargar la página principal. Abortando.&quot;)
+        return
+
+    # Pausa educada entre peticiones
+    time.sleep(TIEMPO_ESPERA)
+    print(&quot;    [OK] Página principal descargada correctamente.&quot;)
+
+    # --- PASO 3: Extraer las URLs de todos los anuncios visibles ---
+    urls_anuncios = extraer_urls_anuncios(html_principal)
+    print(f&quot;\n[3] Se encontraron {len(urls_anuncios)} anuncios en la página principal.&quot;)
+
+    if not urls_anuncios:
+        print(&quot;    [X] No se encontraron anuncios. Abortando.&quot;)
+        return
+
+    # Mostramos las primeras 3 URLs como ejemplo
+    for url_ej in urls_anuncios[:3]:
+        print(f&quot;    Ejemplo: {url_ej}&quot;)
+
+    # --- PASO 4: Visitar cada anuncio y extraer los datos ---
+    print(f&quot;\n[4] Procesando cada anuncio (espera de {TIEMPO_ESPERA}s entre peticiones)...&quot;)
+    lista_datos = []
+
+    for indice, url_anuncio in enumerate(urls_anuncios, start=1):
+        print(f&quot;\n  [{indice}/{len(urls_anuncios)}] Procesando: {url_anuncio}&quot;)
+
+        try:
+            # Parseamos el anuncio actual
+            datos_anuncio = parsear_anuncio(url_anuncio)
+
+            # Si el parseo fue exitoso, agregamos los datos a la lista
+            if datos_anuncio is not None:
+                lista_datos.append(datos_anuncio)
+                print(f&quot;    [OK] Marca: {datos_anuncio[&#x27;Marca&#x27;]} | &quot;
+                      f&quot;Modelo: {datos_anuncio[&#x27;Modelo&#x27;]} | &quot;
+                      f&quot;Año: {datos_anuncio[&#x27;Anio&#x27;]} | &quot;
+                      f&quot;Precio: {datos_anuncio[&#x27;Precio&#x27;]} {datos_anuncio[&#x27;Moneda&#x27;]}&quot;)
+            else:
+                print(f&quot;    [X] No se pudieron extraer datos de este anuncio.&quot;)
+
+        except Exception as e:
+            # Capturamos cualquier error inesperado al parsear un anuncio
+            print(f&quot;    [X] Error inesperado al procesar {url_anuncio}: {e}&quot;)
+
+        # Esperamos 2 segundos entre peticiones (requisito del usuario)
+        time.sleep(TIEMPO_ESPERA)
+
+    # --- PASO 5: Guardar los datos en el archivo CSV ---
+    print(f&quot;\n[5] Guardando {len(lista_datos)} anuncios en &#x27;{RUTA_CSV}&#x27;...&quot;)
+
+    try:
+        # Abrimos el archivo CSV en modo escritura (&quot;w&quot;)
+        # encoding=&quot;utf-8-sig&quot; asegura que los acentos y ñ se vean bien en Excel
+        with open(RUTA_CSV, mode=&quot;w&quot;, newline=&quot;&quot;, encoding=&quot;utf-8-sig&quot;) as archivo_csv:
+            # Creamos un escritor CSV con los nombres de las columnas
+            escritor = csv.DictWriter(archivo_csv, fieldnames=COLUMNAS_CSV)
+
+            # Escribimos la fila de encabezados (nombres de columnas)
+            escritor.writeheader()
+
+            # Escribimos cada fila de datos
+            for fila in lista_datos:
+                escritor.writerow(fila)
+
+        print(f&quot;    [OK] Archivo CSV guardado exitosamente en: {RUTA_CSV}&quot;)
+
+    except IOError as e:
+        # Capturamos errores al escribir el archivo (permisos, disco lleno, etc.)
+        print(f&quot;    [X] Error al escribir el archivo CSV: {e}&quot;)
+
+    # --- RESUMEN FINAL ---
+    print(&quot;\n&quot; + &quot;=&quot; * 60)
+    print(&quot;  RESUMEN DEL SCRAPING&quot;)
+    print(&quot;=&quot; * 60)
+    print(f&quot;  Total de anuncios encontrados: {len(urls_anuncios)}&quot;)
+    print(f&quot;  Anuncios procesados con éxito: {len(lista_datos)}&quot;)
+    print(f&quot;  Archivo CSV generado: {RUTA_CSV}&quot;)
+    print(&quot;=&quot; * 60)
+
+
+# ============================================================
+# 6. PUNTO DE ENTRADA DEL SCRIPT
+# ============================================================
+
+# Verificamos si el script se ejecuta directamente (no se importa como módulo)
+if __name__ == &quot;__main__&quot;:
+    # Llamamos a la función principal
+    main()
+</code></pre><hr><h3>📄 scraper_telegram.py</h3><pre><code>    import asyncio
+import csv
+import re
+from telethon import TelegramClient
+from telethon.errors import FloodWaitError, ChannelPrivateError
+
+# --- CONFIGURACIÓN (CAMBIA ESTOS DATOS POR LOS TUYOS) ---
+API_ID = 1234567  # Pon aquí tu api_id (sin comillas, solo el número)
+API_HASH = &#x27;tu_api_hash_aqui&#x27;  # Pon aquí tu api_hash entre las comillas
+SESSION_NAME = &#x27;telegram_scraper&#x27;
+CSV_FILE = &#x27;data/telegram_autos.csv&#x27;
+GRUPOS = [
+    &#x27;https://t.me/goldenbullbusinessfamilycars&#x27;,
+    &#x27;https://t.me/Motos_Autos_Discover&#x27;
+]
+
+def extraer_datos(texto):
+    datos = {
+        &#x27;Marca&#x27;: &#x27;Desconocida&#x27;, &#x27;Modelo&#x27;: &#x27;&#x27;, &#x27;Anio&#x27;: &#x27;&#x27;, &#x27;Precio&#x27;: &#x27;&#x27;, 
+        &#x27;Moneda&#x27;: &#x27;USD&#x27;, &#x27;Papeles&#x27;: &#x27;&#x27;, &#x27;Provincias&#x27;: &#x27;&#x27;, 
+        &#x27;Uso_y_Desgaste&#x27;: &#x27;&#x27;, &#x27;Mecanicas_y_Dimensiones&#x27;: &#x27;&#x27;, 
+        &#x27;URL_Anuncio&#x27;: &#x27;&#x27;, &#x27;Descripcion_Cruda&#x27;: texto
+    }
+    # Buscar año
+    match_anio = re.search(r&#x27;\b(19|20)\d{2}\b&#x27;, texto)
+    if match_anio: 
+        datos[&#x27;Anio&#x27;] = match_anio.group(0)
+    # Buscar precio (números seguidos de USD o EUR)
+    match_precio = re.search(r&#x27;(\d{1,3}(?:[.,]\d{3})*)\s*(USD|EUR|CUC)&#x27;, texto, re.IGNORECASE)
+    if match_precio:
+        datos[&#x27;Precio&#x27;] = match_precio.group(1)
+        datos[&#x27;Moneda&#x27;] = match_precio.group(2).upper()
+    return datos
+
+async def main():
+    client = TelegramClient(SESSION_NAME, API_ID, API_HASH)
+    await client.start()
+    print(&quot;¡Conectado a Telegram!&quot;)
+
+    with open(CSV_FILE, &#x27;w&#x27;, newline=&#x27;&#x27;, encoding=&#x27;utf-8&#x27;) as f:
+        writer = csv.DictWriter(f, fieldnames=[
+            &#x27;Marca&#x27;, &#x27;Modelo&#x27;, &#x27;Anio&#x27;, &#x27;Precio&#x27;, &#x27;Moneda&#x27;, &#x27;Papeles&#x27;, 
+            &#x27;Provincias&#x27;, &#x27;Uso_y_Desgaste&#x27;, &#x27;Mecanicas_y_Dimensiones&#x27;, 
+            &#x27;URL_Anuncio&#x27;, &#x27;Descripcion_Cruda&#x27;
+        ])
+        writer.writeheader()
+
+        total_mensajes = 0
+        for grupo_url in GRUPOS:
+            print(f&quot;\nLeyendo grupo: {grupo_url}&quot;)
+            try:
+                entidad = await client.get_entity(grupo_url)
+                async for mensaje in client.iter_messages(entidad, limit=200):
+                    if mensaje.text:
+                        texto = mensaje.text
+                        # Filtro básico de palabras clave
+                        if any(p in texto.lower() for p in [&#x27;carro&#x27;, &#x27;auto&#x27;, &#x27;vendo&#x27;, &#x27;usd&#x27;, &#x27;particular&#x27;, &#x27;motor&#x27;]):
+                            datos = extraer_datos(texto)
+                            if hasattr(entidad, &#x27;username&#x27;) and entidad.username:
+                                datos[&#x27;URL_Anuncio&#x27;] = f&quot;https://t.me/{entidad.username}/{mensaje.id}&quot;
+                            writer.writerow(datos)
+                            total_mensajes += 1
+                print(f&quot;  -&gt; Mensajes extraídos de este grupo.&quot;)
+            except ChannelPrivateError:
+                print(f&quot;  -&gt; Error: El grupo {grupo_url} es privado.&quot;)
+            except FloodWaitError as e:
+                print(f&quot;  -&gt; ¡Alerta! Esperando {e.seconds} segundos por límite de Telegram...&quot;)
+                await asyncio.sleep(e.seconds)
+            except Exception as e:
+                print(f&quot;  -&gt; Error inesperado en {grupo_url}: {e}&quot;)
+            
+            await asyncio.sleep(2)
+
+    print(f&quot;\n¡Listo! Total de mensajes guardados: {total_mensajes} en {CSV_FILE}&quot;)
+    await client.disconnect()
+
+if __name__ == &#x27;__main__&#x27;:
+    asyncio.run(main())
+</code></pre><hr><h3>📄 scraping_dongfeng.py</h3><pre><code>#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+&quot;&quot;&quot;
+Scraping del catalogo de vehiculos de https://dongfengqba.com/
+
+Extrae las secciones &quot;Autos recomendados&quot; y &quot;Vehiculos comerciales&quot;
+y guarda el resultado en dongfeng_cuba_catalogo.csv.
+
+El CSV nunca se sobrescribe: si ya existe, se agregan solo las filas nuevas
+(sin duplicar por URL_Anuncio). Requiere:  pip install requests beautifulsoup4 curl_cffi
+&quot;&quot;&quot;
+
+# ==============================================================================
+# IMPORTACIÓN DE LIBRERÍAS (Módulos externos e internos de Python)
+# ==============================================================================
+
+# &#x27;csv&#x27;: Módulo nativo para leer y escribir archivos con formato de valores separados por comas.
+import csv
+
+# &#x27;os&#x27;: Permite consultar el sistema de archivos (verificar si un archivo existe, tamaño, rutas).
+import os
+
+# &#x27;re&#x27;: Módulo de Expresiones Regulares para buscar y limpiar patrones de texto complejos.
+import re
+
+# &#x27;time&#x27;: Para pausar la ejecución del código (evitar sobrecargar el servidor web).
+import time
+
+# &#x27;urljoin&#x27;: Une una dirección web base con un enlace relativo (ejemplo: &#x27;https://sitio.com&#x27; + &#x27;/auto&#x27; -&gt; &#x27;https://sitio.com/auto&#x27;).
+from urllib.parse import urljoin
+
+# &#x27;requests&#x27;: Librería estándar de la industria para enviar peticiones HTTP y descargar páginas.
+import requests
+
+# &#x27;BeautifulSoup&#x27;: Librería para analizar el árbol HTML de una página web y extraer etiquetas fácilmente.
+from bs4 import BeautifulSoup
+
+
+# ==============================================================================
+# CONFIGURACIÓN Y CONSTANTES DEL PROGRAMA
+# ==============================================================================
+
+# URL completa del sitio web oficial de Dongfeng en Cuba.
+URL_PAGINA = &quot;https://dongfengqba.com/&quot;
+
+# Dominio base que usaremos para convertir enlaces relativos en absolutos.
+URL_BASE = &quot;https://dongfengqba.com&quot;
+
+# Nombre del archivo donde almacenaremos la información recolectada.
+ARCHIVO_CSV = &quot;dongfeng_cuba_catalogo.csv&quot;
+
+# Bandera booleana (True/False):
+# True  -&gt; Guarda también los autos que no muestren precio en la página web.
+# False -&gt; Descarta cualquier vehículo que no tenga precio visible.
+INCLUIR_SIN_PRECIO = True
+
+# Lista con los nombres de las 11 columnas que tendrá el archivo CSV final.
+COLUMNAS = [
+    &quot;Marca&quot;,
+    &quot;Modelo&quot;,
+    &quot;Anio&quot;,
+    &quot;Precio&quot;,
+    &quot;Moneda&quot;,
+    &quot;Papeles&quot;,
+    &quot;Provincias&quot;,
+    &quot;Uso y desgaste&quot;,
+    &quot;Mecánicas y dimensiones&quot;,
+    &quot;URL_Anuncio&quot;,
+    &quot;Descripcion_Cruda&quot;,
+]
+
+# Cabeceras (Headers) HTTP: Simulan una petición proveniente de un navegador Google Chrome real en Linux,
+# lo que previene bloqueos automáticos por parte del servidor web.
+HEADERS = {
+    &quot;User-Agent&quot;: (
+        &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 &quot;
+        &quot;(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36&quot;
+    ),
+    &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,
+    &quot;Accept-Language&quot;: &quot;es-ES,es;q=0.9,en;q=0.8&quot;,
+}
+
+
+# ==============================================================================
+# FUNCIONES DE DESCARGA Y EXTRACCIÓN DE DATOS
+# ==============================================================================
+
+def obtener_html(url):
+    &quot;&quot;&quot;
+    Descarga el contenido HTML de la página web.
+    Usa &#x27;requests&#x27; por defecto, pero si recibe un error 403 (Prohibido/Cloudflare),
+    activa automáticamente &#x27;curl_cffi&#x27; que imita la huella TLS de Chrome.
+    &quot;&quot;&quot;
+    try:
+        # Hacemos la petición GET con límite de espera de 20 segundos
+        respuesta = requests.get(url, headers=HEADERS, timeout=20)
+        # Si el servidor responde con 403 Forbidden, forzamos el uso del respaldo
+        if respuesta.status_code == 403:
+            print(&quot;Respuesta 403 con requests; usando curl_cffi como respaldo...&quot;)
+            raise requests.HTTPError(&quot;403 Forbidden&quot;)
+        # Si hubo otro código de error HTTP (como 404 o 500), genera una excepción
+        respuesta.raise_for_status()
+        # Si todo fue exitoso, devuelve el texto HTML
+        return respuesta.text
+    except Exception as error:
+        # En caso de cualquier falla con requests, intentamos el plan B con curl_cffi
+        print(f&quot;requests fallo ({error}); usando curl_cffi como respaldo...&quot;)
+        try:
+            # Importamos curl_cffi solo cuando es necesario
+            from curl_cffi import requests as solicitudes_curl
+
+            # Hacemos la petición fingiendo ser Chrome
+            respuesta = solicitudes_curl.get(url, impersonate=&quot;chrome&quot;, timeout=20)
+            respuesta.raise_for_status()
+            return respuesta.text
+        except Exception as error_curl:
+            # Si ambos métodos fallan, informamos el error y devolvemos None
+            print(f&quot;No se pudo descargar la pagina: {error_curl}&quot;)
+            return None
+    finally:
+        # &#x27;finally&#x27; se ejecuta SIEMPRE: aseguramos una pausa de cortesía de 2 segundos
+        time.sleep(2)
+
+
+def limpiar_precio(texto):
+    &quot;&quot;&quot;
+    Extrae únicamente los dígitos de un texto de precio con euros.
+    Ejemplo: recibe &#x27;Desde € 22.900&#x27; y devuelve &#x27;22900&#x27;.
+    &quot;&quot;&quot;
+    if not texto:
+        return &quot;&quot;
+    # Busca el símbolo de euro seguido de números y puntos (ej: € 22.900)
+    encontrado = re.search(r&quot;€\s*([\d.]+)&quot;, texto)
+    if not encontrado:
+        return &quot;&quot;
+    # Elimina los puntos de miles y espacios para dejar un número limpio
+    return encontrado.group(1).replace(&quot;.&quot;, &quot;&quot;).replace(&quot; &quot;, &quot;&quot;)
+
+
+def detectar_marca(alt_imagen, modelo, id_articulo):
+    &quot;&quot;&quot;
+    Determina la submarca o marca del vehículo analizando el texto del modelo,
+    el texto alternativo de la imagen (alt) y el atributo id de la etiqueta.
+    &quot;&quot;&quot;
+    # Unificamos todos los textos en minúsculas para facilitar la búsqueda
+    texto = f&quot;{alt_imagen} {modelo} {id_articulo}&quot;.lower()
+    # Verificamos si pertenece a las líneas especiales &#x27;Voyah&#x27; o &#x27;MHERO&#x27;
+    if &quot;voyah&quot; in texto:
+        return &quot;Voyah&quot;
+    if &quot;mhero&quot; in texto:
+        return &quot;MHERO&quot;
+    # Por defecto, la marca principal del catálogo es Dongfeng
+    return &quot;Dongfeng&quot;
+
+
+def armar_mecanicas(badge_tipo, badge_gauge, caracteristicas):
+    &quot;&quot;&quot;
+    Une las etiquetas técnicas (tipo de motor, autonomía/batería, prestaciones)
+    en una sola cadena de texto separada por punto y coma (&#x27;; &#x27;).
+    &quot;&quot;&quot;
+    partes = []
+    # Recorremos todas las etiquetas recibidas
+    for texto in [badge_tipo, badge_gauge] + list(caracteristicas):
+        if not texto:
+            continue
+        # Limpiamos espacios en blanco redundantes
+        limpio = re.sub(r&quot;\s+&quot;, &quot; &quot;, texto).strip()
+        # Filtramos textos no deseados (precios o menciones a garantías)
+        if not limpio or &quot;€&quot; in limpio:
+            continue
+        if limpio.lower().startswith(&quot;garantía&quot;):
+            continue
+        # Evitamos repetir la misma característica dos veces
+        if limpio not in partes:
+            partes.append(limpio)
+    # Retornamos todas las características unidas por &#x27;; &#x27;
+    return &quot;; &quot;.join(partes)
+
+
+def extraer_vehiculos(html):
+    &quot;&quot;&quot;
+    Analiza el HTML descargado, localiza todas las tarjetas de vehículos (&lt;article&gt;)
+    y extrae los campos requeridos para el catálogo.
+    &quot;&quot;&quot;
+    # Inicializamos el analizador HTML con BeautifulSoup
+    soup = BeautifulSoup(html, &quot;html.parser&quot;)
+    vehiculos = []
+
+    # Buscamos cada tarjeta de producto identificada con la etiqueta &lt;article&gt;
+    for articulo in soup.select(&quot;article&quot;):
+        # Extraemos el título del modelo dentro de la etiqueta &lt;h3&gt;
+        h3 = articulo.select_one(&quot;h3&quot;)
+        # Si un artículo no tiene &lt;h3&gt;, probablemente no sea un auto válido y lo saltamos
+        if h3 is None:
+            continue
+        modelo = h3.get_text(&quot; &quot;, strip=True)
+
+        # Buscamos la imagen del auto y su texto alternativo (alt)
+        imagen = articulo.select_one(&quot;img&quot;)
+        alt_imagen = imagen.get(&quot;alt&quot;, &quot;&quot;) if imagen else &quot;&quot;
+
+        # Buscamos el enlace a la ficha del vehículo y lo convertimos en URL completa
+        enlace = articulo.select_one(&quot;a[href]&quot;)
+        url = urljoin(URL_BASE, enlace[&quot;href&quot;]) if enlace else &quot;&quot;
+
+        # Buscamos la etiqueta flotante (badge) con el tipo de vehículo (ej: &#x27;Eléctrico&#x27;, &#x27;SUV&#x27;)
+        badge = articulo.select_one(&quot;div.absolute.left-5.top-5 span&quot;)
+        badge_tipo = badge.get_text(&quot; &quot;, strip=True) if badge else &quot;&quot;
+
+        # Buscamos el ícono del medidor (gauge) que indica autonomía o potencia
+        badge_gauge = &quot;&quot;
+        icono = articulo.select_one(&#x27;svg[data-icon=&quot;lucide:gauge&quot;]&#x27;)
+        if icono is not None and icono.parent is not None:
+            badge_gauge = icono.parent.get_text(&quot; &quot;, strip=True)
+
+        # Buscamos el párrafo siguiente al título que contiene la descripción del vehículo
+        descripcion = &quot;&quot;
+        parrafo = h3.find_next(&quot;p&quot;)
+        if parrafo is not None:
+            descripcion = re.sub(r&quot;\s+&quot;, &quot; &quot;, parrafo.get_text(&quot; &quot;, strip=True))
+
+        # Procesamos la sección de precios y características secundarias
+        precio = &quot;&quot;
+        caracteristicas = []
+        fila_precio = articulo.select_one(&quot;div.mt-4.flex.flex-wrap&quot;)
+        if fila_precio is not None:
+            for span in fila_precio.select(&quot;span&quot;):
+                texto = re.sub(r&quot;\s+&quot;, &quot; &quot;, span.get_text(&quot; &quot;, strip=True))
+                if not texto:
+                    continue
+                # Si contiene el símbolo del euro, es el precio del auto
+                if &quot;€&quot; in texto and not precio:
+                    precio = limpiar_precio(texto)
+                else:
+                    # En caso contrario, es una especificación técnica adicional
+                    caracteristicas.append(texto)
+
+        # Unificamos todas las especificaciones mecánicas
+        mecanicas = armar_mecanicas(badge_tipo, badge_gauge, caracteristicas)
+
+        # Si el usuario configuró no incluir autos sin precio, los omitimos aquí
+        if not precio and not INCLUIR_SIN_PRECIO:
+            continue
+
+        # Agregamos el diccionario con los datos del vehículo a nuestra lista
+        vehiculos.append(
+            {
+                &quot;Marca&quot;: detectar_marca(alt_imagen, modelo, articulo.get(&quot;id&quot;, &quot;&quot;)),
+                &quot;Modelo&quot;: modelo,
+                &quot;Anio&quot;: &quot;Nuevo&quot;,            # Los vehículos de concesionario oficial son 0 km
+                &quot;Precio&quot;: precio,
+                &quot;Moneda&quot;: &quot;EUR&quot;,            # Los precios en la web oficial están en Euros
+                &quot;Papeles&quot;: &quot;Nuevo&quot;,
+                &quot;Provincias&quot;: &quot;Cuba&quot;,       # Importación y venta directa a nivel nacional
+                &quot;Uso y desgaste&quot;: &quot;&quot;,
+                &quot;Mecánicas y dimensiones&quot;: mecanicas,
+                &quot;URL_Anuncio&quot;: url,
+                &quot;Descripcion_Cruda&quot;: descripcion,
+            }
+        )
+
+    return vehiculos
+
+
+# ==============================================================================
+# GESTIÓN Y PERSISTENCIA DE DATOS (CSV)
+# ==============================================================================
+
+def leer_filas(ruta):
+    &quot;&quot;&quot;
+    Lee un archivo CSV existente y devuelve una lista de diccionarios con sus filas.
+    Si el archivo no existe o está vacío, devuelve una lista vacía.
+    &quot;&quot;&quot;
+    if not os.path.exists(ruta) or os.path.getsize(ruta) == 0:
+        return []
+    try:
+        # Abrimos el archivo en modo lectura (&#x27;r&#x27; implícito) con codificación utf-8-sig
+        with open(ruta, newline=&quot;&quot;, encoding=&quot;utf-8-sig&quot;) as archivo:
+            # csv.DictReader lee cada línea como un diccionario usando los encabezados como claves
+            return list(csv.DictReader(archivo))
+    except Exception as error:
+        print(f&quot;No se pudo leer {ruta}: {error}&quot;)
+        return []
+
+
+def ruta_segura(ruta):
+    &quot;&quot;&quot;
+    Mecanismo de seguridad para no corromper datos:
+    Si el archivo ya existe pero tiene columnas diferentes a las esperadas,
+    crea un nombre nuevo (ej: catalogo_1.csv) para no romper el archivo original.
+    &quot;&quot;&quot;
+    filas = leer_filas(ruta)
+    # Si el archivo está vacío o sus columnas coinciden exactamente, usamos la ruta original
+    if not filas or list(filas[0].keys()) == COLUMNAS:
+        return ruta
+    
+    # Si las columnas no coinciden, buscamos un sufijo libre (_1, _2, etc.)
+    contador = 1
+    while True:
+        alternativa = f&quot;{os.path.splitext(ruta)[0]}_{contador}.csv&quot;
+        filas_alt = leer_filas(alternativa)
+        if not os.path.exists(alternativa):
+            print(f&quot;Columnas distintas en {ruta}; se usara {alternativa}&quot;)
+            return alternativa
+        if list(filas_alt[0].keys()) == COLUMNAS:
+            return alternativa
+        contador += 1
+
+
+def guardar_csv(vehiculos, ruta):
+    &quot;&quot;&quot;
+    Guarda los vehículos en el archivo CSV sin borrar lo que ya existía (modo append).
+    Deduplica por URL_Anuncio para no repetir ningún vehículo que ya estuviera guardado.
+    Devuelve una tupla: (cantidad_nuevas, total_acumulado, ruta_usada).
+    &quot;&quot;&quot;
+    # Obtenemos la ruta validada
+    ruta = ruta_segura(ruta)
+    # Leemos las filas que ya estaban guardadas previamente
+    existentes = leer_filas(ruta)
+    # Creamos un conjunto (set) con las URLs ya conocidas para búsqueda ultra-rápida O(1)
+    urls_vistas = {f.get(&quot;URL_Anuncio&quot;, &quot;&quot;) for f in existentes if f.get(&quot;URL_Anuncio&quot;)}
+
+    # Filtramos solo aquellos vehículos que no hayan sido guardados antes
+    nuevas = []
+    for fila in vehiculos:
+        url = fila.get(&quot;URL_Anuncio&quot;, &quot;&quot;)
+        # Si la URL ya existe en el archivo, la omitimos
+        if url and url in urls_vistas:
+            continue
+        if url:
+            urls_vistas.add(url)
+        nuevas.append(fila)
+
+    # Verificamos si el archivo está vacío o si no existe aún
+    archivo_vacio = not os.path.exists(ruta) or os.path.getsize(ruta) == 0
+    # Si hay filas nuevas o si el archivo debe crearse desde cero
+    if nuevas or archivo_vacio:
+        # Modo &#x27;a&#x27; (append) para añadir al final, o &#x27;w&#x27; (write) para crear de cero
+        modo = &quot;a&quot; if not archivo_vacio else &quot;w&quot;
+        encoding = &quot;utf-8&quot; if not archivo_vacio else &quot;utf-8-sig&quot;
+        with open(ruta, modo, newline=&quot;&quot;, encoding=encoding) as archivo:
+            escritor = csv.DictWriter(archivo, fieldnames=COLUMNAS)
+            # Solo escribimos los encabezados si el archivo era nuevo o estaba vacío
+            if archivo_vacio:
+                escritor.writeheader()
+            # Escribimos las filas nuevas
+            escritor.writerows(nuevas)
+
+    return len(nuevas), len(existentes) + len(nuevas), ruta
+
+
+# ==============================================================================
+# FUNCIÓN PRINCIPAL (MAIN)
+# ==============================================================================
+
+def main():
+    &quot;&quot;&quot;Función orquestadora que ejecuta los pasos del scraping en orden.&quot;&quot;&quot;
+    print(f&quot;Descargando {URL_PAGINA} ...&quot;)
+    # 1. Descargamos el HTML del sitio web
+    html = obtener_html(URL_PAGINA)
+    if not html:
+        print(&quot;No se pudo obtener la pagina.&quot;)
+        return
+
+    # 2. Analizamos y extraemos los vehículos
+    try:
+        vehiculos = extraer_vehiculos(html)
+    except Exception as error:
+        print(f&quot;Error al analizar la pagina: {error}&quot;)
+        return
+
+    # Si no se encontraron datos, finalizamos con aviso
+    if not vehiculos:
+        print(&quot;No se encontraron vehiculos.&quot;)
+        return
+
+    # 3. Guardamos los datos en el archivo CSV de forma segura
+    try:
+        guardadas, total, ruta = guardar_csv(vehiculos, ARCHIVO_CSV)
+    except Exception as error:
+        print(f&quot;Error al escribir el CSV: {error}&quot;)
+        return
+
+    # 4. Mostramos estadísticas y métricas del proceso
+    sin_precio = sum(1 for v in vehiculos if not v[&quot;Precio&quot;])
+    print(f&quot;Vehículos extraídos: {len(vehiculos)} ({sin_precio} sin precio visible)&quot;)
+    print(f&quot;Vehículos guardados exitosamente: {guardadas}&quot;)
+    print(f&quot;Total de filas en {ruta}: {total}&quot;)
+
+
+# Punto de entrada estándar en Python: asegura que el script corra solo al ejecutarse directamente
+if __name__ == &quot;__main__&quot;:
+    try:
+        main()
+    except Exception as error:
+        print(f&quot;Error inesperado: {error}&quot;)
+</code></pre><hr><h3>📄 unir_todo_final.py</h3><pre><code>import pandas as pd
+
+print(&quot;Iniciando unificación de todas las fuentes...&quot;)
+
+# 1. Cargar los archivos individuales
+try:
+    df_revolico = pd.read_csv(&#x27;data/revolico_80_anuncios.csv&#x27;)
+    print(&quot;✅ Revolico cargado&quot;)
+except: print(&quot;❌ Error cargando Revolico&quot;)
+
+try:
+    df_dongfeng = pd.read_csv(&#x27;data/dongfeng_cuba_catalogo.csv&#x27;)
+    print(&quot;✅ Dongfeng cargado&quot;)
+except: print(&quot;❌ Error cargando Dongfeng&quot;)
+
+try:
+    df_telegram = pd.read_csv(&#x27;data/telegram_autos.csv&#x27;)
+    print(&quot;✅ Telegram cargado&quot;)
+except: print(&quot;❌ Error cargando Telegram&quot;)
+
+try:
+    df_entrevistas = pd.read_csv(&#x27;data/entrevistas_estructuradas.csv&#x27;)
+    print(&quot;✅ Entrevistas cargadas&quot;)
+except: print(&quot;❌ Error cargando Entrevistas&quot;)
+
+try:
+    df_autocubana = pd.read_csv(&#x27;data/autocubana_autos_limpio.csv&#x27;)
+    print(&quot;✅ AutoCubana cargado&quot;)
+except: print(&quot;❌ Error cargando AutoCubana&quot;)
+
+# 2. Unir todos los DataFrames
+df_final = pd.concat([df_revolico, df_dongfeng, df_telegram, df_entrevistas, df_autocubana], ignore_index=True)
+
+# 3. Eliminar duplicados exactos
+df_final = df_final.drop_duplicates(subset=[&#x27;Descripcion_Cruda&#x27;, &#x27;Precio&#x27;], keep=&#x27;first&#x27;)
+
+# 4. Guardar el archivo definitivo
+df_final.to_csv(&#x27;data/PROYECTO_AUTOS_DATASET_OFICIAL.csv&#x27;, index=False)
+
+print(f&quot;\n🎉 ¡ÉXITO! El dataset final tiene {len(df_final)} registros.&quot;)
+print(&quot;Archivo guardado como: data/PROYECTO_AUTOS_DATASET_OFICIAL.csv&quot;)
+</code></pre><hr>
+        </div>
+    </body>
+    </html>
+    
