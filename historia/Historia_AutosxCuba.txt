@@ -1,0 +1,30 @@
+El Mercado Automotriz Cubano
+1- La Pregunta y la Necesidad.
+Todo empezó con una pregunta: ¿Cómo funciona realmente el mercado de autos en Cuba? Sabíamos que los precios varían por el año, la marca y los famosos "papeles", pero quería demostrarlo con datos. Así nació este proyecto.
+
+2- Los Primeros Pasos y el Scraping.
+Me enfrenté a la página de Revolico. Al principio, no sabía cómo extraer los anuncios, era primeriza y no conocía el mundo de la Ia, así que comencé a reunir los datos a mano ( una locura ). Fue aquí donde entró OpenCode como mi aliado. Le pedí ayuda y cree un scraper en Python usando requests y BeautifulSoup. Aprendí sobre el error 403, ya que revolico nos estaba bloqueando y usé curl_cffi para superarlo. Logré extraer 80 anuncios de Revolico.
+
+3- Los Concesionarios (Dongfeng).
+No todo son carros usados. Descubrí el catálogo oficial de Dongfeng en Cuba. Volví a usar a OpenCode para raspar precios en Euros, modelos nuevos y especificaciones. Ahora tenía dos mundos: los carros usados de Revolico y los nuevos de Dongfeng.
+
+4- Uniendo los Mundos (La Limpieza).
+Tener los datos no era suficiente; había precios en dólares, en euros, con comas y sin comas. Usamos Pandas y Jupyter para limpiar todo, unificar monedas, eliminar duplicados y crear un único dataset_autos_cuba_final.csv con más de 120 vehículos.
+
+5- La Voz de los Vendedores (Entrevistas).
+Los datos me decían cuánto cuesta un carro, pero no el por qué. Decidimos hablar con personas reales. Entrevistamos a un Mypime (Yosiel) y a un vendedor particular (Maikol Gruñon). Estructuré sus respuestas. Descubrimos que la gente prefiere autos de combustión por la situación electroenergética del país y que la marca Hyundai es la más buscada.6- Para enriquecer el análisis y no quedarnos solo con la perspectiva comercial, el proyecto amplió su alcance a otros actores clave del mercado automotriz cubano. Se realizaron entrevistas a mecánicos y técnicos automotrices, quienes aportaron una visión crítica sobre la durabilidad de las marcas, la disponibilidad real de repuestos y el costo de mantenimiento. Esta triangulación de datos (vendedores, compradores y técnicos) permite entender que el precio de un auto en Cuba no depende solo de su año o modelo, sino también de la facilidad con la que puede ser reparado en el país. 
+
+ 6- La Evidencia y el Análisis Final.**
+La historia de este proyecto demuestra que en Cuba, el mercado automotriz no es solo un conjunto de números; es un reflejo de la realidad económica, social y de infraestructura del país. Tras analizar más de 170 registros y escuchar las voces de vendedores, dueños y mecánicos, llegamos a las siguientes conclusiones definitivas:
+
+    El Año y la Marca son los pilares del precio: Matemáticamente, el modelo de Machine Learning demostró que el año de fabricación explica más del 50% del valor de un auto, seguido muy de cerca por la marca (especialmente Hyundai y Kia, que dominan la preferencia).
+
+    La durabilidad y los repuestos mandan: En Cuba no se compra solo un carro, se compra la posibilidad de mantenerlo. Marcas como Toyota y Hyundai son las reinas del mercado porque los mecánicos confirman que es fácil encontrarles piezas, a diferencia de otras marcas (incluso algunas chinas) que quedan varadas por falta de repuestos.
+
+    La paradoja Oferta-Demanda: Descubrimos una desconexión total. Los sitios oficiales y de anuncios muestran una oferta inundada de vehículos eléctricos (más del 50%). Sin embargo, las entrevistas revelaron que la demanda real sigue prefiriendo la gasolina. La crisis energética y la falta de carga han provocado que los eléctricos se revendan, creando una sobreoferta que no coincide con el deseo de compra del cubano promedio.
+
+    El entorno destruye valor: El mal estado de las calles (baches) es un factor invisible pero brutal. Los mecánicos confirman que se dañan constantemente las cremalleras de dirección y la suspensión. Un auto con estos daños o con motor/caja dañada pierde casi todo su valor comercial, sin importar su año.
+
+    La complejidad del mercado informal: A diferencia de otros países, el precio en Cuba está influenciado por factores cualitativos imposibles de meter en una fórmula simple: los "papeles" (particulares o estatales), la necesidad del vendedor de emigrar o la urgente necesidad de liquidez.
+
+Este proyecto no solo cumplió con el objetivo de predecir precios, sino que logró radiografiar la realidad de un mercado único en el mundo. La Ciencia de Datos nos permitió demostrar con gráficos y algoritmos lo que el cubano de a pie ya sabe por experiencia: comprar un carro en Cuba es un acto de fe, ingenio y resistencia.
